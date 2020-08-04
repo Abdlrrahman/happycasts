@@ -8,6 +8,17 @@ use Tests\TestCase;
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_correct_response_after_user_logs_in()
+    {
+        $user = factory(Happycasts\User::class)->create();
+
+        $this->postJson('/Login', [
+            'email' => $user->email, 'password' => 'secret'
+        ])->assertStatus(200)
+            ->assertJson(['status' => 'ok'])
+            ->assertSessionHas('success', 'Successfully logged in.');
+    }
     /**
      * A basic user test.
      *
