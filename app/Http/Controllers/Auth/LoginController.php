@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace HappyCasts\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use HappyCasts\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
