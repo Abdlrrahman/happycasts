@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use HappyCasts\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
@@ -11,26 +12,26 @@ class LoginTest extends TestCase
 
     public function test_correct_response_after_user_logs_in()
     {
-        $user = factory(Happycasts\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $this->postJson('/Login', [
-            'email' => $user->email, 'password' => 'secret'
-        ])->assertStatus(200)
-            ->assertJson(['status' => 'ok'])
-            ->assertSessionHas('success', 'Successfully logged in.');
+        $this->postJson('/login', [
+            'email' => $user->email,
+            'password' => 'secret'
+        ], ['X-Requested-With' => 'XMLHttpRequest'])->assertStatus(200)
+            ->assertJson([
+                'status' => 'ok'
+            ])->assertSessionHas('success', 'Successfully logged in.');
     }
-    /**
-     * A basic user test.
-     *
-     * @return void
-     */
     public function test_a_user_receives_correct_message_when_passing_in_wrong_credentials()
     {
-        $user = factory(Happycasts\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $this->postJson('/Login', [
-            'email' => $user->email, 'password' => 'wrong-password'
+        $this->postJson('/login', [
+            'email' => $user->email,
+            'password' => 'wrong-password'
         ])->assertStatus(422)
-            ->assertJson(['message' => 'These credentials do not match our records.']);
+            ->assertJson([
+                'message' => 'These credentials do not match our records.'
+            ]);
     }
 }
