@@ -5,6 +5,7 @@ namespace HappyCasts\Http\Controllers\Auth;
 use HappyCasts\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use HappyCasts\Exceptions\AuthFailedException;
 
 class LoginController extends Controller
 {
@@ -49,5 +50,18 @@ class LoginController extends Controller
     {
         session()->flash('success', 'Successfully Logged In.');
         return response()->json(['status' => 'ok']);
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw new AuthFailedException;
     }
 }
