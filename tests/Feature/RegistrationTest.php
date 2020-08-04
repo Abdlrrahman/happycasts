@@ -13,8 +13,16 @@ class RegistrationTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function test_a_user_has_a_default_username_after_registration()
     {
-        $this->assertTrue(true);
+        $this->post('/register', [
+            'name' => 'bruce wayne',
+            'email' => 'bruce.wayne@waynetech.ind',
+            'password' => 'secret'
+        ])->assertRedirect();
+
+        $this->assertDatabaseHas('users', [
+            'username' => str_slug('bruce wayne')
+        ]);
     }
 }
