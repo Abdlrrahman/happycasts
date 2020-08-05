@@ -8,6 +8,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use HappyCasts\Mail\ConfirmYourEmail;
+use HappyCasts\User;
 
 class RegistrationTest extends TestCase
 {
@@ -43,5 +44,21 @@ class RegistrationTest extends TestCase
         ])->assertRedirect();
         //assert that after registration the user was redirected
         Mail::assertSent(ConfirmYourEmail::class);
+    }
+
+    public function test_a_user_has_a_token_after_registration()
+    {
+        Mail::fake();
+        $this->withoutExceptionHandling();
+        //Register new user
+        $this->post('/register', [
+            'name' => 'alex mercer',
+            'email' => 'alex.mercer@prototype.inc',
+            'password' => 'secret'
+        ])->assertRedirect();
+        //assert that after registration the user's token is not null
+        $user = User::find(1);
+        $this->assertNotNull($user->confirm_token);
+        $this->assertFalse($user->isConfirmed());
     }
 }
