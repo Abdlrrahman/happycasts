@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use Mail;
+
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use HappyCasts\Mail\ConfirmYourEmail;
 
 class RegistrationTest extends TestCase
 {
@@ -15,14 +18,30 @@ class RegistrationTest extends TestCase
      */
     public function test_a_user_has_a_default_username_after_registration()
     {
+        //Register new user
+        //assert that after registration the user was redirected
         $this->post('/register', [
             'name' => 'bruce wayne',
-            'email' => 'bruce.wayne@waynetech.ind',
+            'email' => 'bruce1wayne@waynetech.ind',
             'password' => 'secret'
         ])->assertRedirect();
 
         $this->assertDatabaseHas('users', [
             'username' => str_slug('bruce wayne')
         ]);
+    }
+
+    public function test_an_email_is_sent_to_newly_registered_users()
+    {
+        $this->withoutExceptionHandling();
+        Mail::fake();
+        //Register new user
+        $this->post('/register', [
+            'name' => '1bruce wayne',
+            'email' => '1bruce1wayne@waynetech.ind',
+            'password' => 'secret'
+        ])->assertRedirect();
+        //assert that after registration the user was redirected
+        Mail::assertSent(ConfirmYourEmail::class);
     }
 }
