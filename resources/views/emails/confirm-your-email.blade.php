@@ -3,7 +3,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('confirm-email') . '?token=' . $user->confirm_token])
 Confirm Your Email
 @endcomponent
 
