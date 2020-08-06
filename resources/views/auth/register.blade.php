@@ -27,7 +27,7 @@
       <h5 class="text-uppercase text-center">Register</h5>
       <br><br>
 
-      <form class="form-type-material" action='/register'>
+      <form class="form-type-material" action='/register' method="post">
         {{csrf_field()}}
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Full name" name="name">
@@ -65,6 +65,11 @@
     <script src="assets/js/core.min.js"></script>
     <script src="assets/js/thesaas.min.js"></script>
     <script src="assets/js/script.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    });
+</script>
 
   </body>
 </html>
