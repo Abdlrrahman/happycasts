@@ -19,13 +19,16 @@ class ConfirmEmailTest extends TestCase
     public function test_a_user_can_confirm_email()
     {
         $this->withoutExceptionHandling();
+
         //create user
-        //make a get request to confirm endpoint
-        //assert that the user is confirmed
         $user = factory(User::class)->create();
 
-        $this->get("/reguster/confirm/?token={$user->confirm_token}")
-            ->asssertRedirect('/');
+        //make a get request to confirm endpoint
+        $this->get("/register/confirm/?token={$user->confirm_token}")
+            ->assertRedirect('/')
+            ->assertSessionHas('success', 'Your email has been confirmed.');
+
+        //assert that the user is confirmed
         $this->assertTrue($user->fresh()->isConfirmed());
     }
 }
