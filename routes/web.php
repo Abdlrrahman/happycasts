@@ -20,6 +20,8 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 
+Route::get('register/confirm', 'ConfirmEmailController@index')->name('confirm-email');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
