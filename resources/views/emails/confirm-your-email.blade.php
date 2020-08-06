@@ -1,10 +1,10 @@
 @component('mail::message')
-# Introduction
+# One more step before joining Happycasts !
 
 The body of your message.
 
 @component('mail::button', ['url' => ''])
-Button Text
+Confirm Your Email
 @endcomponent
 
 Thanks,<br>

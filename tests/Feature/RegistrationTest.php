@@ -12,8 +12,10 @@ use HappyCasts\User;
 
 class RegistrationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
-     * A basic test example.
+     * A basic test.
      *
      * @return void
      */
