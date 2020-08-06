@@ -3,6 +3,8 @@
 namespace HappyCasts\Http\Controllers;
 
 use Illuminate\Http\Request;
+use HappyCasts\Http\Requests\CreateSeriesRequest;
+use HappyCasts\Series;
 
 class SeriesController extends Controller
 {
@@ -32,9 +34,21 @@ class SeriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateSeriesRequest $request)
     {
-        //
+        //upload file
+        $image = $request->image->storePubliclyAs('series', str_slug($request->title));
+
+        //create series
+        Series::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'slug' => str_slug($request->title),
+            'image_url' => 'image_url'
+        ]);
+
+        //redirect user to a page to see all the series
+        return redirect()->back();
     }
 
     /**
