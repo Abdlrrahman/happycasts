@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return in_array($this->email, config('happycasts.administrtos'));
+        return in_array($this->email, config('happycasts.administrators'));
     }
 }
