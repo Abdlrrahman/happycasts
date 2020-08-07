@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use HappyCasts\User;
 
 class CreateSeriesTest extends TestCase
 {
@@ -68,5 +69,17 @@ class CreateSeriesTest extends TestCase
             'description' => 'the best vue.js casts ever',
             'image' => 'STRING_INVALID_IMAGE'
         ])->assertSessionHasErrors('image');
+    }
+
+    public function test_only_administrators_can_create_series()
+    {
+
+        //cretae user
+        $this->actingAs(
+            factory(User::class)->create()
+        );
+        //visit endpoint
+        $this->post('/admin/series')
+            ->assertSessionHas('error', 'You are not authorized to perform this action');
     }
 }
