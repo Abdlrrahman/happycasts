@@ -61,4 +61,12 @@ class CreateSeriesTest extends TestCase
             'description' => 'the best vue.js casts ever'
         ])->assertSessionHasErrors('image');
     }
+    public function test_a_series_must_be_created_with_an_image_which_is_actually_an_image()
+    {
+        $this->post('/admin/series', [
+            'title' => 'vue.js is the best',
+            'description' => 'the best vue.js casts ever',
+            'image' => 'STRING_INVALID_IMAGE'
+        ])->assertSessionHasErrors('image');
+    }
 }
