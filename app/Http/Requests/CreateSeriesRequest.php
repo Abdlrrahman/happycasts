@@ -3,6 +3,7 @@
 namespace HappyCasts\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use HappyCasts\Series;
 
 class CreateSeriesRequest extends FormRequest
 {
@@ -26,5 +27,30 @@ class CreateSeriesRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function uploadSeriesImage()
+    {
+        $uploadedImage = $this->image;
+        //upload file
+        $this->fileName = str_slug($this->title) . '.' . $uploadedImage->getClientOriginalExtension();
+        $uploadedImage->storePubliclyAs(
+            'series',
+            $this->fileName
+
+        );
+
+        return $this;
+    }
+
+    public function storeSeries()
+    {
+        //create series
+        Series::create([
+            'title' => $this->title,
+            'description' => $this->description,
+            'slug' => str_slug($this->title),
+            'image_url' => 'series/' . $this->fileName
+        ]);
     }
 }
