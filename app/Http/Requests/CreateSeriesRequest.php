@@ -26,7 +26,8 @@ class CreateSeriesRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'required'
         ];
     }
 
