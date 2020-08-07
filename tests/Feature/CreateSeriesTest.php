@@ -43,7 +43,14 @@ class CreateSeriesTest extends TestCase
         $this->post('/admin/series', [
             'description' => 'the best vue.js casts ever',
             'image' => UploadedFile::fake()->image('image-series.png')
-        ])
-            ->assertSessionHasErrors('title');
+        ])->assertSessionHasErrors('title');
+    }
+
+    public function test_a_series_must_be_created_with_a_description()
+    {
+        $this->post('/admin/series', [
+            'title' => 'vue.js is the best',
+            'image' => UploadedFile::fake()->image('image-series.png')
+        ])->assertSessionHasErrors('description');
     }
 }
