@@ -22,7 +22,7 @@ class CreateLessonsTest extends TestCase
         $this->loginAdmin();
         $this->withoutExceptionHandling();
 
-        //admin/3/lessons
+        //admin/id/lessons
         $series = factory(Series::class)->create();
 
         //data
@@ -40,5 +40,21 @@ class CreateLessonsTest extends TestCase
         $this->assertDatabaseHas('lessons', [
             'title' => $lesson['title']
         ]);
+    }
+
+    public function test_a_title_is_required_to_create_a_lesson()
+    {
+        $this->loginAdmin();
+        //admin/id/lessons
+        $series = factory(Series::class)->create();
+
+        //data
+        $lesson = [
+            'description' => 'new lesson description',
+            'episode_number' => 1,
+            'video_id' => 1234567890
+        ];
+        $this->post("/admin/{$series->id}/lessons", $lesson)
+            ->assertSessionHasErrors('title');
     }
 }

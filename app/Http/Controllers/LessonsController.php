@@ -4,6 +4,7 @@ namespace HappyCasts\Http\Controllers;
 
 use Illuminate\Http\Request;
 use HappyCasts\Series;
+use HappyCasts\Http\Requests\CreateLessonRequest;
 
 class LessonsController extends Controller
 {
@@ -33,7 +34,7 @@ class LessonsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Series $series)
+    public function store(CreateLessonRequest $request, Series $series)
     {
         return $series->lessons()
             ->create(
