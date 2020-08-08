@@ -3,10 +3,9 @@
 namespace HappyCasts\Http\Controllers;
 
 use Illuminate\Http\Request;
-use HappyCasts\Http\Requests\CreateSeriesRequest;
 use HappyCasts\Series;
 
-class SeriesController extends Controller
+class LessonsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class SeriesController extends Controller
      */
     public function create()
     {
-        return view('admin.series.create');
+        //
     }
 
     /**
@@ -34,10 +33,13 @@ class SeriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateSeriesRequest $request)
+    public function store(Request $request, Series $series)
     {
-        return $request->uploadSeriesImage()
-            ->storeSeries();
+        return $series->lessons()
+            ->create(
+                $request
+                    ->only(['title', 'description', 'episode_number', 'video_id'])
+            );
     }
 
     /**
@@ -46,10 +48,9 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Series $series)
+    public function show($id)
     {
-        return view('admin.series.index')
-            ->withSeries($series);;
+        //
     }
 
     /**
