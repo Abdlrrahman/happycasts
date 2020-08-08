@@ -25,7 +25,8 @@ class CreateLessonRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'episode_number' => 'required'
         ];
     }
 }
