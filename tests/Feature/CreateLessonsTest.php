@@ -89,4 +89,20 @@ class CreateLessonsTest extends TestCase
         $this->post("/admin/{$series->id}/lessons", $lesson)
             ->assertSessionHasErrors('episode_number');
     }
+
+    public function test_a_video_id_is_required_to_create_a_lesson()
+    {
+        $this->loginAdmin();
+        //admin/id/lessons
+        $series = factory(Series::class)->create();
+
+        //data
+        $lesson = [
+            "title" => 'new lesson',
+            'description' => 'new lesson description',
+            'episode_number' => 1,
+        ];
+        $this->post("/admin/{$series->id}/lessons", $lesson)
+            ->assertSessionHasErrors('video_id');
+    }
 }
