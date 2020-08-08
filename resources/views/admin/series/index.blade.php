@@ -23,6 +23,7 @@
 
       <div class="row gap-y">
         <div class="col-12">
+{{$series->lessons->first()->title}}
         </div>
       </div>
     </div>
