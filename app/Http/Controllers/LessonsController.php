@@ -5,6 +5,8 @@ namespace HappyCasts\Http\Controllers;
 use Illuminate\Http\Request;
 use HappyCasts\Series;
 use HappyCasts\Http\Requests\CreateLessonRequest;
+use HappyCasts\Lesson;
+use HappyCasts\Http\Requests\UpdateLessonRequest;
 
 class LessonsController extends Controller
 {
@@ -36,11 +38,7 @@ class LessonsController extends Controller
      */
     public function store(CreateLessonRequest $request, Series $series)
     {
-        return $series->lessons()
-            ->create(
-                $request
-                    ->only(['title', 'description', 'episode_number', 'video_id'])
-            );
+        return $series->lessons()->create($request->all());
     }
 
     /**
@@ -72,19 +70,22 @@ class LessonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Series $series, Lesson $lesson, UpdateLessonRequest $request)
     {
-        //
-    }
+        $lesson->update($request->all());
 
+        return $lesson->fresh();
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Series $series, Lesson $lesson)
     {
-        //
+        $lesson->delete();
+
+        return response()->json(['status' => 'ok'], 200);
     }
 }

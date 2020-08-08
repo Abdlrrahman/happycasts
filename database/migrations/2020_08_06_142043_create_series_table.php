@@ -18,7 +18,7 @@ class CreateSeriesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('image_url');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

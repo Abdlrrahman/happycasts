@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="modal fade"
-    id="createLesson"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="createLesson" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -37,7 +30,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="createLesson()">Create lesson</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="updateLesson()"
+            v-if="editing"
+          >Save lesson</button>
+          <button type="button" class="btn btn-primary" @click="createLesson()" v-else>Create lesson</button>
         </div>
       </div>
     </div>
@@ -45,12 +44,22 @@
 </template>
 
 <script>
-import Axios from "axios";
+import axios from "axios";
 export default {
   mounted() {
     this.$parent.$on("create_new_lesson", (seriesId) => {
       this.seriesId = seriesId;
       console.log("hello parent, we are creating the lesson.");
+      $("#createLesson").modal();
+    });
+    this.$parent.$on("edit_lesson", ({ lesson, seriesId }) => {
+      this.editing = true;
+      this.title = lesson.title;
+      this.description = lesson.description;
+      this.video_id = lesson.video_id;
+      this.seriesId = seriesId;
+      this.lessonId = lesson.id;
+      this.episode_number = +lesson.episode_number;
       $("#createLesson").modal();
     });
   },
@@ -61,19 +70,37 @@ export default {
       episode_number: 0,
       video_id: "",
       seriesId: "",
+      editing: false,
+      lessonId: null,
     };
   },
   methods: {
     createLesson() {
-      Axios.post(`/admin/${this.seriesId}/lessons`, {
-        title: this.title,
-        description: this.description,
-        episode_number: this.episode_number,
-        video_id: this.video_id,
-      })
+      axios
+        .post(`/admin/${this.seriesId}/lessons`, {
+          title: this.title,
+          description: this.description,
+          episode_number: this.episode_number,
+          video_id: this.video_id,
+        })
         .then((resp) => {
           this.$parent.$emit("lesson_created", resp.data);
           $("#createLesson").modal("hide");
+        })
+        .catch((resp) => {
+          console.log(resp);
+        });
+    },
+    updateLesson() {
+      axios
+        .put(`/admin/${this.seriesId}/lessons/${this.lessonId}`, {
+          title: this.title,
+          description: this.description,
+          episode_number: this.episode_number,
+          video_id: this.video_id,
+        })
+        .then((resp) => {
+          console.log(resp);
         })
         .catch((resp) => {
           console.log(resp);
