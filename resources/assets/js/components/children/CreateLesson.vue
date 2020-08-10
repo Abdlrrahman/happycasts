@@ -17,22 +17,32 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Lesson title" v-model="title" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Lesson title"
+              v-model="lesson.title"
+            />
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Vimeo video id" v-model="video_id" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Vimeo video id"
+              v-model="lesson.video_id"
+            />
           </div>
           <div class="form-group">
             <input
               type="number"
               class="form-control"
               placeholder="Episode number"
-              v-model="episode_number"
+              v-model="lesson.episode_number"
             />
           </div>
 
           <div class="form-group">
-            <textarea cols="30" rows="10" class="form-control" v-model="description"></textarea>
+            <textarea cols="30" rows="10" class="form-control" v-model="lesson.description"></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -52,31 +62,35 @@
 
 <script>
 import axios from "axios";
+
+class Lesson {
+  constructor(lesson) {
+    this.title = lesson.title || "";
+    this.description = lesson.description || "";
+    this.video_id = lesson.video_id || "";
+    this.episode_number = lesson.episode_number || "";
+  }
+}
 export default {
   mounted() {
     this.$parent.$on("create_new_lesson", (seriesId) => {
-      console.log("seriesId = ", seriesId);
       this.seriesId = seriesId;
+      this.editing = false;
+      this.lesson = new Lesson({});
       console.log("hello parent, we are creating the lesson.");
       $("#createLesson").modal();
     });
     this.$parent.$on("edit_lesson", ({ lesson, seriesId }) => {
       this.editing = true;
-      this.title = lesson.title;
-      this.description = lesson.description;
-      this.video_id = lesson.video_id;
+      this.lesson = new Lesson(lesson);
       this.seriesId = seriesId;
       this.lessonId = lesson.id;
-      this.episode_number = +lesson.episode_number;
       $("#createLesson").modal();
     });
   },
   data() {
     return {
-      title: "",
-      description: "",
-      episode_number: 0,
-      video_id: "",
+      lesson: {},
       seriesId: "",
       editing: false,
       lessonId: null,
@@ -85,12 +99,7 @@ export default {
   methods: {
     createLesson() {
       axios
-        .post(`/admin/${this.seriesId}/lessons`, {
-          title: this.title,
-          description: this.description,
-          episode_number: this.episode_number,
-          video_id: this.video_id,
-        })
+        .post(`/admin/${this.seriesId}/lessons`, this.lesson)
         .then((resp) => {
           this.$parent.$emit("lesson_created", resp.data);
           $("#createLesson").modal("hide");
@@ -101,14 +110,10 @@ export default {
     },
     updateLesson() {
       axios
-        .put(`/admin/${this.seriesId}/lessons/${this.lessonId}`, {
-          title: this.title,
-          description: this.description,
-          episode_number: this.episode_number,
-          video_id: this.video_id,
-        })
+        .put(`/admin/${this.seriesId}/lessons/${this.lessonId}`, this.lesson)
         .then((resp) => {
-          console.log(resp);
+          $("#createLesson").modal("hide");
+          this.$parent.$emit("lesson_updated", resp.data);
         })
         .catch((resp) => {
           console.log(resp);

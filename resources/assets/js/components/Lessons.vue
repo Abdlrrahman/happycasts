@@ -30,12 +30,19 @@ export default {
     this.$on("lesson_created", (lesson) => {
       this.lessons.push(lesson);
     });
+
+    this.$on("lesson_updated", (lesson) => {
+      let lessonIndex = this.lessons.findIndex((l) => {
+        return lesson.id == l.id;
+      });
+
+      this.lessons.splice(lessonIndex, 1, lesson);
+    });
   },
   components: {
     "create-lesson": require("./children/CreateLesson.vue"),
   },
   data() {
-    // console.log("this.series_id", this.series_id);
     return {
       lessons: JSON.parse(this.default_lessons),
     };
@@ -43,10 +50,10 @@ export default {
   computed: {},
   methods: {
     createNewLesson() {
-      // console.log("this.series_id", this.series_id);
       this.$emit("create_new_lesson", this.series_id);
     },
     deleteLesson(id, key) {
+      console.log(id, key);
       if (confirm("Are you sure you wanna delete ?")) {
         Axios.delete(`/admin/${this.series_id}/lessons/${id}`)
           .then((resp) => {
