@@ -73,8 +73,8 @@ export default {
               type: "success",
             });
           })
-          .catch((resp) => {
-            console.log(resp);
+          .catch((error) => {
+            window.handleErrors(error);
           });
       }
     },

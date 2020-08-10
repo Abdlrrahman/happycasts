@@ -9,18 +9,25 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-window.events = new Vue()
+window.events = new Vue();
 
 window.notify = function (notification) {
     window.events.$emit('notification', notification)
-}
+};
 
+window.handleErrors = function (error) {
+    if (error.response.status == 422) {
+        window.notify({
+            message: 'There was a validation error, Please try again.',
+            type: 'danger'
+        })
+    }
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+    window.notify({
+        message: 'Something went wrong, Please refresh the page.',
+        type: 'danger'
+    })
+};
 
 Vue.component('vue-login', require('./components/Login.vue'));
 
