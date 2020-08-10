@@ -1300,6 +1300,12 @@ __webpack_require__(15);
 
 window.Vue = __webpack_require__(36);
 
+window.events = new Vue();
+
+window.notify = function (notification) {
+  window.events.$emit('notification', notification);
+};
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -1309,6 +1315,8 @@ window.Vue = __webpack_require__(36);
 Vue.component('vue-login', __webpack_require__(40));
 
 Vue.component('vue-lessons', __webpack_require__(43));
+
+Vue.component('vue-notify', __webpack_require__(60));
 
 var app = new Vue({
   el: '#app'
@@ -45523,6 +45531,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     this.$on("lesson_created", function (lesson) {
+      window.notify({
+        message: "Lesson created successfully",
+        type: "success"
+      });
       _this.lessons.push(lesson);
     });
 
@@ -46054,6 +46066,144 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Notify.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-61c45fc0", Component.options)
+  } else {
+    hotAPI.reload("data-v-61c45fc0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    var _this = this;
+
+    window.events.$on("notification", function (payload) {
+      _this.notification = payload;
+      setTimeout(function () {
+        _this.notification = null;
+      }, 2500);
+    });
+  },
+  data: function data() {
+    return {
+      notification: this.default_noty || null
+    };
+  },
+
+  computed: {
+    type: function type() {
+      return "alert-" + this.notification.type;
+    }
+  }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.notification
+    ? _c(
+        "div",
+        {
+          staticClass: "alert",
+          class: _vm.type,
+          staticStyle: {
+            width: "400px",
+            position: "fixed",
+            right: "25px",
+            bottom: "25px"
+          }
+        },
+        [
+          _c("p", { staticClass: "text-center" }, [
+            _vm._v(_vm._s(_vm.notification.message))
+          ])
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-61c45fc0", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

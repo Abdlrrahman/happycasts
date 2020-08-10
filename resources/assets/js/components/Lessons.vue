@@ -28,6 +28,10 @@ export default {
   props: ["default_lessons", "series_id"],
   mounted() {
     this.$on("lesson_created", (lesson) => {
+      window.notify({
+        message: "Lesson created successfully",
+        type: "success",
+      });
       this.lessons.push(lesson);
     });
 

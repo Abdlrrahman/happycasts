@@ -76,7 +76,7 @@
     <!-- END Main container -->
 
 
-
+<vue-notify></vue-notify>
 
 
     @if(!auth()->check())
