@@ -3,9 +3,13 @@
     <h1 class="text-center">
       <button class="btn btn-primary" @click="createNewLesson()">Create New Lesson</button>
     </h1>
-    <div class>
+    <div>
       <ul class="list-group d-flex">
-        <li class="list-group-item d-flex justify-content-between" v-for="lesson, key in lessons">
+        <li
+          class="list-group-item d-flex justify-content-between"
+          v-for="(lesson, key) in lessons"
+          :key="key"
+        >
           <p>{{ lesson.title }}</p>
           <p>
             <button class="btn btn-primary btn-xs" @click="editLesson(lesson)">Edit</button>
@@ -31,6 +35,7 @@ export default {
     "create-lesson": require("./children/CreateLesson.vue"),
   },
   data() {
+    // console.log("this.series_id", this.series_id);
     return {
       lessons: JSON.parse(this.default_lessons),
     };
@@ -38,6 +43,7 @@ export default {
   computed: {},
   methods: {
     createNewLesson() {
+      // console.log("this.series_id", this.series_id);
       this.$emit("create_new_lesson", this.series_id);
     },
     deleteLesson(id, key) {

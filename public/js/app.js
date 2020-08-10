@@ -45511,6 +45511,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45527,6 +45531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     "create-lesson": __webpack_require__(45)
   },
   data: function data() {
+    // console.log("this.series_id", this.series_id);
     return {
       lessons: JSON.parse(this.default_lessons)
     };
@@ -45535,6 +45540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {},
   methods: {
     createNewLesson: function createNewLesson() {
+      // console.log("this.series_id", this.series_id);
       this.$emit("create_new_lesson", this.series_id);
     },
     deleteLesson: function deleteLesson(id, key) {
@@ -45655,6 +45661,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45662,6 +45675,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     this.$parent.$on("create_new_lesson", function (seriesId) {
+      console.log("seriesId = ", seriesId);
       _this.seriesId = seriesId;
       console.log("hello parent, we are creating the lesson.");
       $("#createLesson").modal();
@@ -45734,12 +45748,13 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "modal fade",
+      staticClass: "modal",
       attrs: {
         id: "createLesson",
         tabindex: "-1",
         role: "dialog",
-        "aria-hidden": "true"
+        "aria-hidden": "true",
+        "aria-labelledby": "exampleModalLabel"
       }
     },
     [
@@ -45954,14 +45969,17 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", {}, [
+      _c("div", [
         _c(
           "ul",
           { staticClass: "list-group d-flex" },
           _vm._l(_vm.lessons, function(lesson, key) {
             return _c(
               "li",
-              { staticClass: "list-group-item d-flex justify-content-between" },
+              {
+                key: key,
+                staticClass: "list-group-item d-flex justify-content-between"
+              },
               [
                 _c("p", [_vm._v(_vm._s(lesson.title))]),
                 _vm._v(" "),

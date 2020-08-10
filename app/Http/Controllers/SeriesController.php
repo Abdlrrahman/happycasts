@@ -49,7 +49,7 @@ class SeriesController extends Controller
     public function show(Series $series)
     {
         return view('admin.series.index')
-            ->withSeries($series);;
+            ->withSeries($series);
     }
 
     /**

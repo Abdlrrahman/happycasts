@@ -1,5 +1,12 @@
 <template>
-  <div class="modal fade" id="createLesson" tabindex="-1" role="dialog" aria-hidden="true">
+  <div
+    class="modal"
+    id="createLesson"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+    aria-labelledby="exampleModalLabel"
+  >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -48,6 +55,7 @@ import axios from "axios";
 export default {
   mounted() {
     this.$parent.$on("create_new_lesson", (seriesId) => {
+      console.log("seriesId = ", seriesId);
       this.seriesId = seriesId;
       console.log("hello parent, we are creating the lesson.");
       $("#createLesson").modal();
