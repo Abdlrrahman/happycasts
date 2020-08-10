@@ -28,11 +28,12 @@ export default {
   props: ["default_lessons", "series_id"],
   mounted() {
     this.$on("lesson_created", (lesson) => {
+      this.lessons.push(lesson);
+
       window.notify({
         message: "Lesson created successfully",
         type: "success",
       });
-      this.lessons.push(lesson);
     });
 
     this.$on("lesson_updated", (lesson) => {
@@ -41,6 +42,11 @@ export default {
       });
 
       this.lessons.splice(lessonIndex, 1, lesson);
+
+      window.notify({
+        message: "Lesson updated successfully",
+        type: "success",
+      });
     });
   },
   components: {
@@ -57,11 +63,15 @@ export default {
       this.$emit("create_new_lesson", this.series_id);
     },
     deleteLesson(id, key) {
-      console.log(id, key);
       if (confirm("Are you sure you wanna delete ?")) {
         Axios.delete(`/admin/${this.series_id}/lessons/${id}`)
           .then((resp) => {
             this.lessons.splice(key, 1);
+
+            window.notify({
+              message: "Lesson deleted successfully",
+              type: "success",
+            });
           })
           .catch((resp) => {
             console.log(resp);
