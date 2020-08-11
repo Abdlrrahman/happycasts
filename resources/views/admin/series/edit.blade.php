@@ -24,7 +24,7 @@
         <div class="col-12">
 
 
-         <form action="{{ route('series.update', $series->slug)  }}" method="PUT" enctype="multipart/form-data">
+         <form action="{{ route('series.update', $series->slug)  }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 {{ method_field('PUT') }}
             <div class="form-group">
