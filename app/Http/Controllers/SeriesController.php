@@ -76,7 +76,7 @@ class SeriesController extends Controller
     public function update(UpdateSeriesRequest $request, Series $series)
     {
         if ($request->hasFile('image')) {
-            $series->image_url = $request->uploadSeriesImage()->fileName;
+            $series->image_url = 'series/' . $request->uploadSeriesImage()->fileName;
         };
 
         $series->title = $request->title;

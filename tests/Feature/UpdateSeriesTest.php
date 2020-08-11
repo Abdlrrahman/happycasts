@@ -43,7 +43,7 @@ class UpdateSeriesTest extends TestCase
         //assert that the db has the series
         $this->assertDatabaseHas('series', [
             'slug' => str_slug('new series title'),
-            'image_url' => 'new-series-title.png'
+            'image_url' => 'series/new-series-title.png'
         ]);
     }
 }
