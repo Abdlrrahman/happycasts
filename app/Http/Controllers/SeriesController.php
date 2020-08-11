@@ -5,6 +5,7 @@ namespace HappyCasts\Http\Controllers;
 use Illuminate\Http\Request;
 use HappyCasts\Http\Requests\CreateSeriesRequest;
 use HappyCasts\Series;
+use HappyCasts\Http\Requests\UpdateSeriesRequest;
 
 class SeriesController extends Controller
 {
@@ -72,9 +73,20 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSeriesRequest $request, Series $series)
     {
-        dd($request->all());
+        if ($request->hasFile('image')) {
+            $series->image_url = $request->uploadSeriesImage()->fileName;
+        };
+
+        $series->title = $request->title;
+        $series->description = $request->description;
+        $series->slug = str_slug($request->title);
+
+        $series->save();
+
+        session()->flash('success', 'Successfully updated series');
+        return redirect()->route('series.index');
     }
 
     /**
