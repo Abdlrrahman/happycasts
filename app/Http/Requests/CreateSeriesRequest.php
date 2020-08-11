@@ -2,10 +2,9 @@
 
 namespace HappyCasts\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use HappyCasts\Series;
 
-class CreateSeriesRequest extends FormRequest
+class CreateSeriesRequest extends SeriesRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,20 +28,6 @@ class CreateSeriesRequest extends FormRequest
             'description' => 'required',
             'image' => 'required|image'
         ];
-    }
-
-    public function uploadSeriesImage()
-    {
-        $uploadedImage = $this->image;
-        //upload file
-        $this->fileName = str_slug($this->title) . '.' . $uploadedImage->getClientOriginalExtension();
-        $uploadedImage->storePubliclyAs(
-            'series',
-            $this->fileName
-
-        );
-
-        return $this;
     }
 
     public function storeSeries()

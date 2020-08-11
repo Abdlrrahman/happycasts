@@ -2,9 +2,7 @@
 
 namespace HappyCasts\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateSeriesRequest extends FormRequest
+class UpdateSeriesRequest extends SeriesRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,17 +26,16 @@ class UpdateSeriesRequest extends FormRequest
             'description' => 'required'
         ];
     }
-    public function uploadSeriesImage()
+
+    public function updateSeries($series)
     {
-        $uploadedImage = $this->image;
-        //upload file
-        $this->fileName = str_slug($this->title) . '.' . $uploadedImage->getClientOriginalExtension();
-        $uploadedImage->storePubliclyAs(
-            'series',
-            $this->fileName
+        if ($this->hasFile('image')) {
+            $series->image_url = 'series/' . $this->uploadSeriesImage()->fileName;
+        }
+        $series->title = $this->title;
+        $series->description = $this->description;
+        $series->slug = str_slug($this->title);
 
-        );
-
-        return $this;
+        $series->save();
     }
 }
