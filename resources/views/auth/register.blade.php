@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    <title>TheSaaS - Register</title>
+    <title>HappyCasts</title>
 
     <!-- Styles -->
     <link href="assets/css/core.min.css" rel="stylesheet">

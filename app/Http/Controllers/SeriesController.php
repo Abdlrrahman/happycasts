@@ -15,7 +15,8 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        //
+        $series = Series::all();
+        return view('admin.series.all')->withSeries($series);
     }
 
     /**

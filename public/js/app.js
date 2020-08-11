@@ -1282,7 +1282,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);
-module.exports = __webpack_require__(49);
+module.exports = __webpack_require__(52);
 
 
 /***/ }),
@@ -1303,23 +1303,31 @@ window.Vue = __webpack_require__(36);
 window.events = new Vue();
 
 window.notify = function (notification) {
-  window.events.$emit('notification', notification);
+    window.events.$emit('notification', notification);
 };
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+window.handleErrors = function (error) {
+    if (error.response.status == 422) {
+        window.notify({
+            message: 'There was a validation error, Please try again.',
+            type: 'danger'
+        });
+    }
+
+    window.notify({
+        message: 'Something went wrong, Please refresh the page.',
+        type: 'danger'
+    });
+};
 
 Vue.component('vue-login', __webpack_require__(40));
 
 Vue.component('vue-lessons', __webpack_require__(43));
 
-Vue.component('vue-notify', __webpack_require__(60));
+Vue.component('vue-notify', __webpack_require__(49));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
 });
 
 /***/ }),
@@ -45531,11 +45539,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     this.$on("lesson_created", function (lesson) {
+      _this.lessons.push(lesson);
+
       window.notify({
         message: "Lesson created successfully",
         type: "success"
       });
-      _this.lessons.push(lesson);
     });
 
     this.$on("lesson_updated", function (lesson) {
@@ -45544,6 +45553,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
 
       _this.lessons.splice(lessonIndex, 1, lesson);
+
+      window.notify({
+        message: "Lesson updated successfully",
+        type: "success"
+      });
     });
   },
 
@@ -45564,12 +45578,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     deleteLesson: function deleteLesson(id, key) {
       var _this2 = this;
 
-      console.log(id, key);
       if (confirm("Are you sure you wanna delete ?")) {
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete("/admin/" + this.series_id + "/lessons/" + id).then(function (resp) {
           _this2.lessons.splice(key, 1);
-        }).catch(function (resp) {
-          console.log(resp);
+
+          window.notify({
+            message: "Lesson deleted successfully",
+            type: "success"
+          });
+        }).catch(function (error) {
+          window.handleErrors(error);
         });
       }
     },
@@ -45749,8 +45767,8 @@ var Lesson = function Lesson(lesson) {
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/admin/" + this.seriesId + "/lessons", this.lesson).then(function (resp) {
         _this2.$parent.$emit("lesson_created", resp.data);
         $("#createLesson").modal("hide");
-      }).catch(function (resp) {
-        console.log(resp);
+      }).catch(function (error) {
+        window.handleErrors(error);
       });
     },
     updateLesson: function updateLesson() {
@@ -45759,8 +45777,8 @@ var Lesson = function Lesson(lesson) {
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put("/admin/" + this.seriesId + "/lessons/" + this.lessonId, this.lesson).then(function (resp) {
         $("#createLesson").modal("hide");
         _this3.$parent.$emit("lesson_updated", resp.data);
-      }).catch(function (resp) {
-        console.log(resp);
+      }).catch(function (error) {
+        window.handleErrors(error);
       });
     }
   }
@@ -46063,30 +46081,14 @@ if (false) {
 
 /***/ }),
 /* 49 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(61)
+var __vue_script__ = __webpack_require__(50)
 /* template */
-var __vue_template__ = __webpack_require__(62)
+var __vue_template__ = __webpack_require__(51)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46125,7 +46127,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46167,7 +46169,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 62 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46204,6 +46206,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-61c45fc0", module.exports)
   }
 }
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

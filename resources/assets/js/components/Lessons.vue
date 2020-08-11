@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Axios from "axios";
+import axios from "axios";
 export default {
   props: ["default_lessons", "series_id"],
   mounted() {
@@ -64,7 +64,8 @@ export default {
     },
     deleteLesson(id, key) {
       if (confirm("Are you sure you wanna delete ?")) {
-        Axios.delete(`/admin/${this.series_id}/lessons/${id}`)
+        axios
+          .delete(`/admin/${this.series_id}/lessons/${id}`)
           .then((resp) => {
             this.lessons.splice(key, 1);
 
