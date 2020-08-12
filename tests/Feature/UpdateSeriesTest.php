@@ -37,7 +37,7 @@ class UpdateSeriesTest extends TestCase
 
         //assert storage image
         Storage::disk(config('filesystems.default'))->assertExists(
-            'series/' . str_slug('new series title') . '.png'
+            'public/series/' . str_slug('new series title') . '.png'
         );
 
         //assert that the db has the series

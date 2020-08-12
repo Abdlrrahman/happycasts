@@ -33,7 +33,7 @@ class CreateSeriesTest extends TestCase
             ->assertSessionHas('success', 'Series created successfully');
 
         Storage::disk(config('filesystems.default'))->assertExists(
-            'series/' . str_slug('vue.js is the best') . '.png'
+            'public/series/' . str_slug('vue.js is the best') . '.png'
         );
 
         $this->assertDatabaseHas('series', [
