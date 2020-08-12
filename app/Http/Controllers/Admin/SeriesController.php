@@ -1,10 +1,10 @@
 <?php
 
-namespace HappyCasts\Http\Controllers;
+namespace HappyCasts\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use HappyCasts\Http\Requests\CreateSeriesRequest;
 use HappyCasts\Series;
+use HappyCasts\Http\Controllers\Controller;
+use HappyCasts\Http\Requests\CreateSeriesRequest;
 use HappyCasts\Http\Requests\UpdateSeriesRequest;
 
 class SeriesController extends Controller

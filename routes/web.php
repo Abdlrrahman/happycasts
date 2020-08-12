@@ -22,11 +22,6 @@ Route::get('/logout', function () {
 
 Route::get('register/confirm', 'ConfirmEmailController@index')->name('confirm-email');
 
-Route::middleware("admin")->prefix("admin")->group(function () {
-    Route::resource('series', 'SeriesController');
-    Route::resource('{series_by_id}/lessons', 'LessonsController');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

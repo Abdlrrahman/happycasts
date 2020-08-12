@@ -1,11 +1,11 @@
 <?php
 
-namespace HappyCasts\Http\Controllers;
+namespace HappyCasts\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use HappyCasts\Series;
-use HappyCasts\Http\Requests\CreateLessonRequest;
 use HappyCasts\Lesson;
+use HappyCasts\Http\Controllers\Controller;
+use HappyCasts\Http\Requests\CreateLessonRequest;
 use HappyCasts\Http\Requests\UpdateLessonRequest;
 
 class LessonsController extends Controller
