@@ -32,14 +32,14 @@
           <button class="topbar-toggler">&#9776;</button>
           <a class="topbar-brand" href="index.html">
             <img class="logo-default" src="{{ asset('assets/img/logo.png') }}" alt="logo">
-            {{-- <img class="logo-inverse" src="{{ asset('assets/img/logo-light.png') }}" alt="logo"> --}}
+            <img class="logo-inverse" src="{{ asset('assets/img/logo-light.png') }}" alt="logo">
           </a>
         </div>
 
 
         <div class="topbar-right">
           <ul class="topbar-nav nav">
-            <li class="nav-item"><a class="nav-link" href="">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
             @auth
               <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">All
                   series</a></li>
