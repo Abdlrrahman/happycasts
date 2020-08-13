@@ -25,4 +25,9 @@ trait Learning
 
     return ($numberOfCompletedLessons / $numberOfLessonsInSeries) * 100;
   }
+
+  public function hasStartedSeries($series)
+  {
+    return $this->getNumberOfCompletedLessonsForASeries($series) > 0;
+  }
 }
