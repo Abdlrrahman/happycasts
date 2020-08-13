@@ -24,10 +24,7 @@ class ExampleTest extends TestCase
         $user = factory(User::class)->create();
 
         //create series
-        $series = factory(Series::class)->create();
-        $lesson = factory(Lesson::class)->create([
-            'series_id' => $series->id
-        ]);
+        $lesson = factory(Lesson::class)->create();
 
         //complete a lesson
         $user->completeLesson($lesson);
@@ -35,7 +32,5 @@ class ExampleTest extends TestCase
             Redis::smembers('user:1:series:1'),
             [1]
         );
-
-        //redis
     }
 }
