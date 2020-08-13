@@ -2,6 +2,7 @@
 
 namespace HappyCasts;
 
+use Redis;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -41,5 +42,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return in_array($this->email, config('happycasts.administrators'));
+    }
+
+    public function completeLesson($lesson)
+    {
+        Redis::sadd("user:{$this->id}:series:{$lesson->series->id}", $lesson->id);
     }
 }
