@@ -3,6 +3,7 @@
 namespace HappyCasts\Entities;
 
 use Redis;
+use HappyCasts\Lesson;
 
 trait Learning
 {
@@ -14,9 +15,8 @@ trait Learning
 
   public function getNumberOfCompletedLessonsForASeries($series)
   {
-    return count(Redis::smembers("user:{$this->id}:series:{$series->id}"));
+    return count($this->getCompletedLessonsForASeries($series));
   }
-
 
   public function percentageCompletedForSeries($series)
   {
@@ -29,5 +29,18 @@ trait Learning
   public function hasStartedSeries($series)
   {
     return $this->getNumberOfCompletedLessonsForASeries($series) > 0;
+  }
+
+  public function getCompletedLessonsForASeries($series)
+  {
+    return Redis::smembers("user:{$this->id}:series:{$series->id}");
+  }
+
+  public function getCompletedLessons($series)
+  {
+    $completedLessons = $this->getCompletedLessonsForASeries($series);
+    return collect($completedLessons)->map(function ($lessonId) {
+      return Lesson::find($lessonId);
+    });
   }
 }

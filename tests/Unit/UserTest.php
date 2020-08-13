@@ -6,8 +6,8 @@ use Redis;
 use Tests\TestCase;
 use HappyCasts\User;
 use HappyCasts\Lesson;
-use HappyCasts\Series;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
 class ExampleTest extends TestCase
 {
@@ -93,5 +93,41 @@ class ExampleTest extends TestCase
         $this->assertTrue($user->hasStartedSeries($lesson->series));
 
         $this->assertFalse($user->hasStartedSeries($lesson3->series));
+    }
+
+    public function test_can_get_completed_series_lessons()
+    {
+        $this->flushRedis();
+
+        //create a user
+        $user = factory(User::class)->create();
+
+        //create lessons
+        $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
+        $lesson3 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
+
+        //complete lessons
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson2);
+
+        $completedLessons = $user->getCompletedLessons($lesson->series);
+
+
+        $this->assertINstanceOf(Collection::class, $completedLessons);
+
+        $this->assertInstanceOf(Lesson::class, $completedLessons->random());
+
+        $completedLessonsIds = $completedLessons->pluck('id')->all();
+
+        $this->assertTrue(in_array($lesson->id, $completedLessonsIds));
+
+        $this->assertTrue(in_array($lesson2->id, $completedLessonsIds));
+
+        $this->assertFalse(in_array($lesson3->id, $completedLessonsIds));
     }
 }
