@@ -20,17 +20,58 @@ class ExampleTest extends TestCase
      */
     public function test_a_user_can_complete_a_lesson()
     {
+
+        $this->flushRedis();
         //create user
         $user = factory(User::class)->create();
 
-        //create series
+        //create lessons
         $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
 
         //complete a lesson
         $user->completeLesson($lesson);
+        $user->completeLesson($lesson2);
+
         $this->assertEquals(
             Redis::smembers('user:1:series:1'),
-            [1]
+            [1, 2]
+        );
+
+        $this->assertEquals(
+            $user->getNumberOfCompletedLessonsForASeries($lesson->series),
+            2
+        );
+    }
+
+    public function test_a_user_can_get_percentage_completed_for_series()
+    {
+
+        $this->flushRedis();
+        //create user
+        $user = factory(User::class)->create();
+
+        //create lessons
+        $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
+        $lesson3 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
+        $lesson4 = factory(Lesson::class)->create([
+            'series_id' => 1
+        ]);
+
+
+        //complete a lesson
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson2);
+        $this->assertEquals(
+            $user->percentageCompletedForSeries($lesson->series),
+            50
         );
     }
 }
