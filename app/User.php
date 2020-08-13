@@ -3,12 +3,13 @@
 namespace HappyCasts;
 
 use Redis;
+use HappyCasts\Entities\Learning;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Learning;
 
     /**
      * The attributes that are mass assignable.
@@ -42,24 +43,5 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return in_array($this->email, config('happycasts.administrators'));
-    }
-
-    public function completeLesson($lesson)
-    {
-        Redis::sadd("user:{$this->id}:series:{$lesson->series->id}", $lesson->id);
-    }
-
-    public function getNumberOfCompletedLessonsForASeries($series)
-    {
-        return count(Redis::smembers("user:{$this->id}:series:{$series->id}"));
-    }
-
-
-    public function percentageCompletedForSeries($series)
-    {
-        $numberOfLessonsInSeries = $series->lessons->count();
-        $numberOfCompletedLessons = $this->getNumberOfCompletedLessonsForASeries($series);
-
-        return ($numberOfCompletedLessons / $numberOfLessonsInSeries) * 100;
     }
 }

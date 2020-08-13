@@ -55,13 +55,9 @@ class ExampleTest extends TestCase
 
         //create lessons
         $lesson = factory(Lesson::class)->create();
+        factory(Lesson::class)->create(['series_id' => 1]);
+        factory(Lesson::class)->create(['series_id' => 1]);
         $lesson2 = factory(Lesson::class)->create([
-            'series_id' => 1
-        ]);
-        $lesson3 = factory(Lesson::class)->create([
-            'series_id' => 1
-        ]);
-        $lesson4 = factory(Lesson::class)->create([
             'series_id' => 1
         ]);
 
