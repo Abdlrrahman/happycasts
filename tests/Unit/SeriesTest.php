@@ -9,6 +9,8 @@ use HappyCasts\Series;
 
 class SeriesTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test.
      *
