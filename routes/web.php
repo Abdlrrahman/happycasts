@@ -17,4 +17,8 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 
+Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');
+
+Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson')->name('series.watch');
+
 Route::get('/series/{series}', 'FrontendController@series')->name('series');
