@@ -36,7 +36,7 @@ class SeriesTest extends TestCase
         // call the getOrderedLessons 
         $lessons = $lesson->series->getOrderedLessons();
 
-        //make sure that the lessons are in the correct order
+        // make sure that the lessons are in the correct order
         $this->assertInstanceOf(Lesson::class, $lessons->random());
         $this->assertEquals($lessons->first()->id, $lesson2->id);
         $this->assertEquals($lessons->last()->id, $lesson3->id);
