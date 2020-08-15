@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use HappyCasts\Series;
+use HappyCasts\Lesson;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SeriesTest extends TestCase
 {
