@@ -35,6 +35,8 @@ Vue.component('vue-lessons', require('./components/Lessons.vue'));
 
 Vue.component('vue-notify', require('./components/Notify.vue'));
 
+Vue.component('vue-player', require('./components/Player.vue'));
+
 const app = new Vue({
     el: '#app'
 });

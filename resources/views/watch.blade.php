@@ -8,7 +8,7 @@
       <div class="col-12 col-lg-8 offset-lg-2">
 
         <h1>{{ $lesson->title }}</h1>
-        <p class="fs-20 opacity-70">{{  $series->title }}</p>
+        <p class="fs-20 opacity-70">{{ $series->title }}</p>
 
       </div>
     </div>
@@ -17,15 +17,15 @@
 </header>
 @stop
 
-@section('content')
+  @section('content')
   <div class="section bg-grey">
     <div class="container">
 
-      <div class="row gap-y">
-        <div class="col-12">          
-
+      <div class="row gap-y  text-center">
+        <div class="col-12">
+          <vue-player default_lesson="{{ $lesson }}"></vue-player>
         </div>
       </div>
     </div>
   </div>
-@stop 
+  @stop
