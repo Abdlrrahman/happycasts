@@ -43,4 +43,12 @@ trait Learning
       return Lesson::find($lessonId);
     });
   }
+
+  public function hasCompletedLesson($lesson)
+  {
+    return in_array(
+      $lesson->id,
+      $this->getCompletedLessonsForASeries($lesson->series)
+    );
+  }
 }
