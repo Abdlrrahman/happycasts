@@ -1,5 +1,7 @@
 <?php
 
+// Get Routes
+
 Route::get('/redis', function () {
     return view('series');
 });
@@ -22,3 +24,7 @@ Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('serie
 Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson')->name('series.watch');
 
 Route::get('/series/{series}', 'FrontendController@series')->name('series');
+
+// Post Routes
+
+Route::post("/series/complete-lesson/{lesson}", 'WatchSeriesController@completeLesson');
