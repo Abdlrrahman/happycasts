@@ -47,9 +47,18 @@
         <div class="col-12">
           <ul class="list-group">
             @foreach($series->getOrderedLessons() as $l)
-              <li class="list-group-item">
+              <li class="list-group-item
+                @if($l->id == $lesson->id)
+                  active
+                @endif
+              ">
+
+               @if(auth()->user()->hasCompletedLesson($l))
+                    <b><small>COMPLETED</small></b>
+                @endif
+
                 <a
-                  href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id]) }}">{{ $l->title }}</a>
+                  href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id]) }}"><h6>{{ $l->title }}</h6></a>
               </li>
             @endforeach
           </ul>

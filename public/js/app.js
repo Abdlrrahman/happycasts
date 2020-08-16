@@ -46265,12 +46265,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vimeo_player__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 //
 //
 //
 //
 //
 //
+
 
 
 
@@ -46289,6 +46292,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()("Congrats You completed this series !");
       }
+    },
+    completeLesson: function completeLesson() {
+      var _this2 = this;
+
+      Axios.post("/series/complete-lesson/" + this.lesson.id, {}).then(function (resp) {
+        _this2.displayVideoEndedAlert();
+      });
     }
   },
 
@@ -46298,12 +46308,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     var player = new __WEBPACK_IMPORTED_MODULE_0__vimeo_player__["a" /* default */]("handstick");
 
     player.on("ended", function () {
-      _this2.displayVideoEndedAlert();
+      _this3.completeLesson();
     });
   }
 });
