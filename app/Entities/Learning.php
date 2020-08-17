@@ -4,6 +4,7 @@ namespace HappyCasts\Entities;
 
 use Redis;
 use HappyCasts\Lesson;
+use HappyCasts\Series;
 
 trait Learning
 {
@@ -50,5 +51,24 @@ trait Learning
       $lesson->id,
       $this->getCompletedLessonsForASeries($lesson->series)
     );
+  }
+
+  public function seriesBeingWatchedIds()
+  {
+    $keys = Redis::keys("user:{$this->id}:series:*");
+    $seriesIds = [];
+    foreach ($keys as $key) :
+      $seriedId = explode(':', $key)[3];
+      array_push($seriesIds, $seriedId);
+    endforeach;
+
+    return $seriesIds;
+  }
+
+  public function seriesBeingWatched()
+  {
+    return collect($this->seriesBeingWatchedIds())->map(function ($id) {
+      return Series::find($id);
+    })->filter();
   }
 }

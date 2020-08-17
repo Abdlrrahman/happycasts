@@ -6,6 +6,7 @@ use Redis;
 use Tests\TestCase;
 use HappyCasts\User;
 use HappyCasts\Lesson;
+use HappyCasts\Series;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 
@@ -147,5 +148,44 @@ class ExampleTest extends TestCase
         $this->assertTrue($user->hasCompletedLesson($lesson));
 
         $this->assertFalse($user->hasCompletedLesson($lesson2));
+    }
+
+    public function test_can_get_all_series_being_watched_by_user()
+    {
+        $this->flushRedis();
+        //create a user
+        $user = factory(User::class)->create();
+
+        //create lessons
+        $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create(['series_id' => 1]);
+        $lesson3 = factory(Lesson::class)->create();
+        $lesson4 = factory(Lesson::class)->create(['series_id' => 2]);
+        $lesson5 = factory(Lesson::class)->create();
+        $lesson6 = factory(Lesson::class)->create(['series_id' => 3]);
+
+        //complete a lesson 
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson3);
+
+        $startedSeries = $user->seriesBeingWatched();
+
+        $this->assertInstanceOf(Collection::class, $startedSeries);
+
+        $this->assertInstanceOf(Series::class, $startedSeries->random());
+
+        $idsOfStartedSeries = $startedSeries->pluck('id')->all();
+
+        $this->assertTrue(
+            in_array($lesson->series->id, $idsOfStartedSeries)
+        );
+
+        $this->assertTrue(
+            in_array($lesson3->series->id, $idsOfStartedSeries)
+        );
+
+        $this->assertFalse(
+            in_array($lesson6->series->id, $idsOfStartedSeries)
+        );
     }
 }
