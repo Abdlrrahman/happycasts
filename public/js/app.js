@@ -45259,7 +45259,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "modal fade",
+      staticClass: "modal",
       attrs: {
         id: "loginModal",
         tabindex: "-1",
@@ -46296,7 +46296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     completeLesson: function completeLesson() {
       var _this2 = this;
 
-      Axios.post("/series/complete-lesson/" + this.lesson.id, {}).then(function (resp) {
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post("/series/complete-lesson/" + this.lesson.id, {}).then(function (resp) {
         _this2.displayVideoEndedAlert();
       });
     }

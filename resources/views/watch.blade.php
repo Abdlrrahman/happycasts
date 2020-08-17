@@ -54,11 +54,11 @@
               ">
 
                @if(auth()->user()->hasCompletedLesson($l))
-                    <b><small>COMPLETED</small></b>
+                    <b><small>COMPLETED -&nbsp;&nbsp;</small></b>
                 @endif
 
                 <a
-                  href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id]) }}"><h6>{{ $l->title }}</h6></a>
+                  href="{{ route('series.watch', ['series' => $series->slug, 'lesson' => $l->id]) }}">{{ $l->title }}</a>
               </li>
             @endforeach
           </ul>

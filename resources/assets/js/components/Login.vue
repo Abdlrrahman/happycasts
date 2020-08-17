@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal fade"
+    class="modal"
     id="loginModal"
     tabindex="-1"
     role="dialog"
