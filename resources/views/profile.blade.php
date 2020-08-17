@@ -7,8 +7,8 @@
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2">
 
-        <h1>Kati frantz</h1>
-        <p class="fs-20 opacity-70">kati-frantz</p>
+        <h1>Logan</h1>
+        <p class="fs-20 opacity-70">Logan</p>
         <br>
         <h1>{{ $user->getTotalNumberOfCompletedLessons() }}</h1>
         <p class="fs-20 opacity-70">Lessons completed</p>
