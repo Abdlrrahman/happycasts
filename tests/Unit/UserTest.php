@@ -188,4 +188,25 @@ class ExampleTest extends TestCase
             in_array($lesson6->series->id, $idsOfStartedSeries)
         );
     }
+
+    public function test_can_get_number_of_completed_lessons_for_a_user()
+    {
+        $this->flushRedis();
+        //create a user
+        $user = factory(User::class)->create();
+
+        //create lessons
+        $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create(['series_id' => 1]);
+        $lesson3 = factory(Lesson::class)->create();
+        $lesson4 = factory(Lesson::class)->create(['series_id' => 2]);
+        $lesson5 = factory(Lesson::class)->create(['series_id' => 2]);
+
+        //complete a lesson 
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson3);
+        $user->completeLesson($lesson5);
+
+        $this->assertEquals(3, $user->getTotalNumberOfCompletedLessons());
+    }
 }
