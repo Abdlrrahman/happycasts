@@ -82,4 +82,13 @@ trait Learning
 
     return $result;
   }
+
+  public function getNextLessonToWatch($series)
+  {
+    $lessonIds = $this->getCompletedLessonsForASeries($series);
+    $lessonId = end($lessonIds);
+    return Lesson::find(
+      $lessonId
+    )->getNextLesson();
+  }
 }

@@ -209,4 +209,30 @@ class ExampleTest extends TestCase
 
         $this->assertEquals(3, $user->getTotalNumberOfCompletedLessons());
     }
+
+    public function test_can_get_next_lesson_to_be_watched_by_user()
+    {
+        $this->flushRedis();
+        //create a user
+        $user = factory(User::class)->create();
+
+        //create lessons
+        $lesson = factory(Lesson::class)->create(['episode_number' => 1]);
+        $lesson2 = factory(Lesson::class)->create(['series_id' => 1, 'episode_number' => 2]);
+        $lesson3 = factory(Lesson::class)->create(['series_id' => 1, 'episode_number' => 3]);
+        $lesson4 = factory(Lesson::class)->create(['series_id' => 1, 'episode_number' => 4]);
+
+        //complete a lesson 
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson2);
+
+        $nextLesson = $user->getNextLessonToWatch($lesson->series);
+
+        $this->assertEquals($lesson3->id, $nextLesson->id);
+
+        //complete a lesson 
+        $user->completeLesson($lesson3);
+
+        $this->assertEquals($lesson4->id, $user->getNextLessonToWatch($lesson->series)->id);
+    }
 }
