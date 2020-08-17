@@ -24,7 +24,7 @@ export default {
     },
 
     completeLesson() {
-      Axios.post(`/series/complete-lesson/${this.lesson.id}`, {}).then(
+      axios.post(`/series/complete-lesson/${this.lesson.id}`, {}).then(
         (resp) => {
           this.displayVideoEndedAlert();
         }
