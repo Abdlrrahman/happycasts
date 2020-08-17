@@ -25,7 +25,7 @@ Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson
 
 Route::get('/series/{series}', 'FrontendController@series')->name('series');
 
-Route::get('/profile')->name('profile');
+Route::get('/profile/{user}', 'ProfilesController@index')->name('profile');
 
 // Post Routes
 
