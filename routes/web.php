@@ -17,16 +17,13 @@ Route::get('/series/{series}', 'FrontendController@series')->name('series');
 
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile');
 
-Route::get('/subscribe', function () {
-    return view('subscribe');
-});
-
 Route::get('/series', 'FrontendController@showAllseries')->name('all-series');
 
 
 Route::middleware('auth')->group(function () {
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
     Route::post('/subscribe', 'SubscriptionsController@subscribe');
+    Route::get('/subscribe', 'SubscriptionsController@showSubscriptionForm');
     Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');
     Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson')->name('series.watch');
 });
