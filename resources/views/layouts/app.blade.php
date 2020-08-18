@@ -32,9 +32,8 @@
 
         <div class="topbar-left">
           <button class="topbar-toggler">&#9776;</button>
-          <a class="topbar-brand" href="index.html">
-            <img class="logo-default" src="{{ asset('assets/img/logo.png') }}" alt="logo">
-            <img class="logo-inverse" src="{{ asset('assets/img/logo-light.png') }}" alt="logo">
+          <a class="topbar-brand" href="/" style="color: white;">
+            HAPPYCASTS
           </a>
         </div>
 
