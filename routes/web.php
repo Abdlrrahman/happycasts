@@ -21,6 +21,16 @@ Route::get('/subscribe', function () {
     return view('subscribe');
 });
 
+Route::post('/subscribe', function () {
+    return auth()->user()
+        ->newSubscription(
+            request('plan'),
+            request('plan')
+        )->create(
+            request('stripeToken')
+        );
+});
+
 Route::middleware('auth')->group(function () {
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
     Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');

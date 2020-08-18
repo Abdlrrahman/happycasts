@@ -54,7 +54,7 @@
                 @endadmin 
 
               <li class="nav-item">
-                <a class="nav-link" href="">{{ auth()->user()->name }}</a></li>
+                <a class="nav-link" href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->name }}</a></li>
               </li>
             @endauth
             @guest
@@ -107,9 +107,7 @@
 
           <div class="col-12 col-lg-3">
             <div class="social text-center text-lg-right">
-              <a class="social-facebook" href=""><i class="fa fa-facebook"></i></a>
-              <a class="social-twitter" href=""><i class="fa fa-twitter"></i></a>
-              <a class="social-instagram" href=""><i class="fa fa-instagram"></i></a>
+              <a class="social-linkedin" href=""><i class="fa fa-linkedin"></i></a>
               <a class="social-github" href=""><i class="fa fa-github"></i></a>
           </div>
           </div>

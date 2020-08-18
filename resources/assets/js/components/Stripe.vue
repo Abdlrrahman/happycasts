@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: ["email"],
   mounted() {
@@ -13,7 +14,16 @@ export default {
       key: "pk_test_2VnQL9Cic4hLPeiYtvHellBI",
       image: "https://stripe.com/img/documentation/checkout/marketplace.png",
       locale: "auto",
-      token(token) {},
+      token(token) {
+        axios
+          .post("/subscribe", {
+            stripeToken: token.id,
+            plan: window.stripePlan,
+          })
+          .then((resp) => {
+            console.log(resp);
+          });
+      },
     });
   },
   data() {
