@@ -37,6 +37,8 @@ Vue.component('vue-notify', require('./components/Notify.vue'));
 
 Vue.component('vue-player', require('./components/Player.vue'));
 
+Vue.component('vue-stripe', require('./components/Stripe.vue'));
+
 const app = new Vue({
     el: '#app'
 });

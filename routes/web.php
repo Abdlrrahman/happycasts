@@ -17,7 +17,9 @@ Route::get('/series/{series}', 'FrontendController@series')->name('series');
 
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile');
 
-
+Route::get('/subscribe', function () {
+    return view('subscribe');
+});
 
 Route::middleware('auth')->group(function () {
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
