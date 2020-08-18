@@ -53,11 +53,15 @@
 
                 @endadmin 
 
+              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a></li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->name }}</a></li>
               </li>
             @endauth
+
             @guest
+
+              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a></li>
               <li class="nav-item"><a class="nav-link" href="javascript:;" data-toggle="modal"
                   data-target="#loginModal">Login</a></li>
             @endguest

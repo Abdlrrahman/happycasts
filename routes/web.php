@@ -31,6 +31,9 @@ Route::post('/subscribe', function () {
         );
 });
 
+Route::get('/series', 'FrontendController@showAllseries')->name('all-series');
+
+
 Route::middleware('auth')->group(function () {
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
     Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');
