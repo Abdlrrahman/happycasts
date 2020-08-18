@@ -21,21 +21,12 @@ Route::get('/subscribe', function () {
     return view('subscribe');
 });
 
-Route::post('/subscribe', function () {
-    return auth()->user()
-        ->newSubscription(
-            request('plan'),
-            request('plan')
-        )->create(
-            request('stripeToken')
-        );
-});
-
 Route::get('/series', 'FrontendController@showAllseries')->name('all-series');
 
 
 Route::middleware('auth')->group(function () {
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
+    Route::post('/subscribe', 'SubscriptionsController@subscribe');
     Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');
     Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson')->name('series.watch');
 });
