@@ -1407,6 +1407,8 @@ Vue.component('vue-player', __webpack_require__(53));
 
 Vue.component('vue-stripe', __webpack_require__(57));
 
+Vue.component('vue-update-card', __webpack_require__(71));
+
 var app = new Vue({
     el: '#app'
 });
@@ -48849,7 +48851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           buttons: false
         });
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/subscribe", {
-          stripeToken: tok_visa,
+          stripeToken: _token.id,
           plan: window.stripePlan
         }).then(function (resp) {
           __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({ text: "subscribed successfully", icon: "success" }).then(function () {
@@ -48939,6 +48941,152 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(72)
+/* template */
+var __vue_template__ = __webpack_require__(73)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/UpdateCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0e8d8470", Component.options)
+  } else {
+    hotAPI.reload("data-v-0e8d8470", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["email"],
+  mounted: function mounted() {
+    this.handler = StripeCheckout.configure({
+      key: "pk_test_2VnQL9Cic4hLPeiYtvHellBI",
+      image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+      locale: "auto",
+      allowRememberMe: false,
+      token: function token(_token) {
+        __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
+          text: "Please wait for your order to get processed",
+          buttons: false
+        });
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("/card/update", {
+          stripeToken: _token.id
+        }).then(function (resp) {
+          __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
+            text: "Updated the card details successfully",
+            icon: "success"
+          }).then(function () {
+            window.location = "";
+          });
+        });
+      }
+    });
+  },
+  data: function data() {
+    return {
+      handler: null
+    };
+  },
+
+  methods: {
+    update: function update() {
+      this.handler.open({
+        name: "HappyCasts",
+        description: "HappyCasts Subscription",
+        email: this.email,
+        panelLabel: "Update card details"
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      { staticClass: "btn btn-success", on: { click: _vm.update } },
+      [_vm._v("Update card details")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0e8d8470", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
