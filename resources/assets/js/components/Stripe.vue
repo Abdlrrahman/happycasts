@@ -7,6 +7,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert";
 export default {
   props: ["email"],
   mounted() {
@@ -15,13 +16,21 @@ export default {
       image: "https://stripe.com/img/documentation/checkout/marketplace.png",
       locale: "auto",
       token(token) {
+        Swal({
+          text: "Please wait while for your order to get processed",
+          buttons: false,
+        });
         axios
           .post("/subscribe", {
             stripeToken: token.id,
             plan: window.stripePlan,
           })
           .then((resp) => {
-            console.log(resp);
+            Swal({ text: "subscribed successfully", icon: "success" }).then(
+              () => {
+                window.location = "";
+              }
+            );
           });
       },
     });
