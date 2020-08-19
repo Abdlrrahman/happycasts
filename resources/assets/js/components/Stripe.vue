@@ -12,7 +12,8 @@ export default {
   props: ["email"],
   mounted() {
     this.handler = StripeCheckout.configure({
-      key: "pk_test_2VnQL9Cic4hLPeiYtvHellBI",
+      key:
+        "key",
       image: "https://stripe.com/img/documentation/checkout/marketplace.png",
       locale: "auto",
       token(token) {

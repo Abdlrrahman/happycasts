@@ -15,8 +15,7 @@ class SubscriptionsController extends Controller
     {
         return auth()->user()
             ->newSubscription(
-                request('plan'),
-                request('plan')
+                request('plan', ('plan' == 'yearly') ? 'yearlyId' : 'monthlyId')
             )->create(
                 request('stripeToken')
             );
@@ -29,13 +28,10 @@ class SubscriptionsController extends Controller
         ]);
         $user = auth()->user();
         $userPlan = $user->subscriptions->first()->stripe_plan;
-        $userPlanName = $user->subscriptions->first()->name;
-
         if (request('plan') === $userPlan) {
             return redirect()->back();
         }
 
-        $user->subscription($userPlanName)->swap(request('plan'));
         $user->subscription($userPlan)->swap(request('plan'));
 
         return redirect()->back();
