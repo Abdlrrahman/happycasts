@@ -17,12 +17,12 @@ export default {
       locale: "auto",
       token(token) {
         Swal({
-          text: "Please wait while for your order to get processed",
+          text: "Please wait for your order to get processed",
           buttons: false,
         });
         axios
           .post("/subscribe", {
-            stripeToken: token.id,
+            stripeToken: tok_visa,
             plan: window.stripePlan,
           })
           .then((resp) => {
@@ -31,6 +31,9 @@ export default {
                 window.location = "";
               }
             );
+          })
+          .catch((error) => {
+            console.log(error);
           });
       },
     });

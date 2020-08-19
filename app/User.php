@@ -11,6 +11,9 @@ class User extends Authenticatable
 {
     use Notifiable, Learning, Billable;
 
+
+    protected $with = ['subscriptions'];
+
     /**
      * The attributes that are mass assignable.
      *

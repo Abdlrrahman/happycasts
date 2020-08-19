@@ -40,9 +40,10 @@ trait Learning
   public function getCompletedLessons($series)
   {
     $completedLessons = $this->getCompletedLessonsForASeries($series);
-    return collect($completedLessons)->map(function ($lessonId) {
-      return Lesson::find($lessonId);
-    });
+    return Lesson::whereIn(
+      'id',
+      $this->getCompletedLessonsForASeries($series)
+    )->get();
   }
 
   public function hasCompletedLesson($lesson)

@@ -48845,16 +48845,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       locale: "auto",
       token: function token(_token) {
         __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({
-          text: "Please wait while for your order to get processed",
+          text: "Please wait for your order to get processed",
           buttons: false
         });
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/subscribe", {
-          stripeToken: _token.id,
+          stripeToken: tok_visa,
           plan: window.stripePlan
         }).then(function (resp) {
           __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({ text: "subscribed successfully", icon: "success" }).then(function () {
             window.location = "";
           });
+        }).catch(function (error) {
+          console.log(error);
         });
       }
     });

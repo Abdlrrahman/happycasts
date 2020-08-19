@@ -8,6 +8,8 @@ class Lesson extends Model
 {
     protected $guarded = [];
 
+    protected $with = [];
+
     public function series()
     {
         return $this->belongsTo(Series::class);
