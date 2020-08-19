@@ -44,6 +44,10 @@
           <div class="form-group">
             <textarea cols="30" rows="10" class="form-control" v-model="lesson.description"></textarea>
           </div>
+          <div class="form-group">
+            <input type="checkbox" v-model="lesson.premium" />
+            Premium: {{ lesson.premium }}
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -69,6 +73,7 @@ class Lesson {
     this.description = lesson.description || "";
     this.video_id = lesson.video_id || "";
     this.episode_number = lesson.episode_number || "";
+    this.premium = lesson.premium || false;
   }
 }
 export default {
@@ -94,6 +99,7 @@ export default {
       seriesId: "",
       editing: false,
       lessonId: null,
+      premium: false,
     };
   },
   methods: {
