@@ -1,5 +1,8 @@
 <?php
 
+use HappyCasts\User;
+use HappyCasts\Lesson;
+use HappyCasts\Series;
 use Illuminate\Database\Seeder;
 
 class HappyCastsSeeder extends Seeder
@@ -12,7 +15,9 @@ class HappyCastsSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
+            'name' => 'test',
             'email' => 'test@test.com',
+            'password' => bcrypt('secret'),
         ]);
         factory(Series::class, 5)
             ->create()
