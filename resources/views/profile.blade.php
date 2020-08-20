@@ -109,7 +109,7 @@
                <form action="{{ route('subscriptions.change') }}" method="post">
                     {{ csrf_field() }}
                     <h5 class="text-center">
-                        Your current plan: <span class="badge badge-success">{{ auth()->user()->subscriptions->first()->stripe_plan }}</span>
+                        Your current plan: <span class="badge badge-success">{{ auth()->user()->subscriptions->first() ? auth()->user()->subscriptions->first()->name : 'no plan was selected' }}</span>
                     </h5>
                     <br>
                     <select name="plan" class="form-control">
@@ -126,7 +126,7 @@
             <div class="tab-pane" id="settings-2">
                 <div class="row">
                     <h2 class="text-center">
-                        Your current card: <span class="badge badge-sm badge-primary">{{ auth()->user()->card_brand }}:{{ auth()->user()->card_last_four }}</span>
+                        Your current card: <span class="badge badge-sm badge-primary">{{ auth()->user()->card_brand ? ((auth()->user()->card_brand .':'. auth()->user()->card_last_four)) : 'No card was used' }}</span>
                     </h2>
                     <p class="ml-5 mt-5 text-center">
                         <vue-update-card email="{{ auth()->user()->email }}"></vue-update-card>

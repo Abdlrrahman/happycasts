@@ -48842,7 +48842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ["email"],
   mounted: function mounted() {
     this.handler = StripeCheckout.configure({
-      key: "key",
+      key: "pk_test_51HHnUqGUqwF6djx01NoObwG8WiH4Oxhv4VEdVjJkkPbFyJoKuf2oypgBQ7Iz64S1uQMc85ychz1sVY88vqKlXbgF00PMAsoZvA",
       image: "https://stripe.com/img/documentation/checkout/marketplace.png",
       locale: "auto",
       token: function token(_token) {
