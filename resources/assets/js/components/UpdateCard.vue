@@ -22,7 +22,7 @@ export default {
         });
         axios
           .post("/card/update", {
-            stripeToken: token.id,
+            stripeToken: "tok_mastercard_debit",
           })
           .then((resp) => {
             Swal({
