@@ -13,10 +13,12 @@ class SubscriptionsController extends Controller
 
     public function subscribe()
     {
+        $yearlyId = config('services.yearly_id');
+        $monthlyId = config('services.monthly_id');
         return auth()->user()
             ->newSubscription(
                 request('plan'),
-                (request('plan') == 'yearly' ? 'yearlyId' : 'monthlyId')
+                (request('plan') == 'yearly' ? $yearlyId : $monthlyId)
             )->create(
                 request('stripeToken')
             );
@@ -24,18 +26,22 @@ class SubscriptionsController extends Controller
 
     public function change()
     {
+        $yearlyId = config('services.yearly_id');
+        $monthlyId = config('services.monthly_id');
+
         $this->validate(request(), [
             'plan' => 'required'
         ]);
         $user = auth()->user();
+        $plan = request('plan');
         $userPlan = $user->subscriptions->first()->stripe_plan;
         $userPlanName = $user->subscriptions->first()->name;
-        if (request('plan') === $userPlan) {
+
+        if (($plan === 'yearly' ? $yearlyId : $monthlyId) === $userPlan) {
             return redirect()->back();
         }
 
-        $user->subscription($userPlan)->swap(request('plan'));
-        $user->subscription($userPlanName)->swap(request('plan'));
+        $user->subscription($userPlanName)->swap(($plan === 'yearly' ? $yearlyId : $monthlyId), $plan);
 
         return redirect()->back();
     }

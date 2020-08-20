@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'yearly_id' => env('YREARLY_ID'),
+
+    'monthly_id' => env('MONTHLY_ID'),
+
 ];
