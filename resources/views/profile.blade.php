@@ -54,6 +54,12 @@
 
     </div>
 </section>    
+
+@if(auth()->id() === $user->id)
+@php 
+$subscription = auth()->user()->subscriptions->first();
+@endphp 
+
 <section class="section bg-gray" id="section-vtab">
     <div class="container">
         <header class="section-header">
@@ -77,11 +83,16 @@
                 <h6>Payments & Subscriptions</h6>
                 </a>
             </li>
+
+@if(auth()->user()->card_brand)
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#settings-2">
                 <h6>Card details</h6>
                 </a>
             </li>
+
+            @endif 
+
             </ul>
         </div>
 
@@ -109,9 +120,17 @@
                <form action="{{ route('subscriptions.change') }}" method="post">
                     {{ csrf_field() }}
                     <h5 class="text-center">
-                        Your current plan: <span class="badge badge-success">{{ auth()->user()->subscriptions->first() ? auth()->user()->subscriptions->first()->name : 'no plan was selected' }}</span>
+                        Your current plan:
+@if($subscription)
+ <span class="badge badge-success">{{ $subscription->name  }}</span>
+@else 
+<span class="badge badge-danger">No plan was selected</span>
+@endif 
                     </h5>
                     <br>
+
+                    @if($subscription)
+
                     <select name="plan" class="form-control">
                         <option value="monthly">Monthly</option>
                         <option value="yearly">Yearly</option>
@@ -120,19 +139,26 @@
                     <p class="text-center">
                         <button class="btn btn-primary" type="submit">Change plan</button>
                     </p>
+
+                    @endif
+
                 </form>
             </div>
+
+            @if(auth()->user()->card_brand)
 
             <div class="tab-pane" id="settings-2">
                 <div class="row">
                     <h2 class="text-center">
-                        Your current card: <span class="badge badge-sm badge-primary">{{ auth()->user()->card_brand ? ((auth()->user()->card_brand .':'. auth()->user()->card_last_four)) : 'No card was used' }}</span>
+                        Your current card: <span class="badge badge-sm badge-primary">{{ auth()->user()->card_brand }}:{{ auth()->user()->card_last_four }}</span>
                     </h2>
                     <p class="ml-5 mt-5 text-center">
                         <vue-update-card email="{{ auth()->user()->email }}"></vue-update-card>
                     </p>
                 </div>
             </div>
+
+            @endif 
 
             </div>
         </div>
@@ -143,6 +169,7 @@
 
     </div>
 </section>    
+@endif
 
 @endsection
 
