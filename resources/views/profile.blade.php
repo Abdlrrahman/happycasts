@@ -113,7 +113,7 @@ $subscription = auth()->user()->subscriptions->first();
                     </form>
             </div>
 
-            <div class="tab-pane fade text-center" id="profile-2">
+            <div class="tab-pane text-center" id="profile-2">
             </div>
 
             <div class="tab-pane" id="messages-2">
