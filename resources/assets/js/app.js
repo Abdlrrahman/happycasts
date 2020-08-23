@@ -29,8 +29,6 @@ window.handleErrors = function (error) {
     })
 };
 
-Vue.component('vue-login', require('./components/Login.vue'));
-
 Vue.component('vue-lessons', require('./components/Lessons.vue'));
 
 Vue.component('vue-notify', require('./components/Notify.vue'));

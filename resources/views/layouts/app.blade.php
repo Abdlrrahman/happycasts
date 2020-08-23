@@ -101,10 +101,6 @@
 
     <vue-notify></vue-notify>
 
-
-    @guest
-      <vue-login></vue-login>
-    @endguest
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container">

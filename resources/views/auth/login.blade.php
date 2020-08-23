@@ -30,9 +30,9 @@
       <form class="form-type-material" action="/login" method="post">
           {{ csrf_field() }}
  @if ($errors->has('email') || $errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                    <ul class="alert alert-danger">
+                                       <p>{{ $errors->first('email') }}</p>
+                                    </ul>
                                 @endif
         <div class="form-group">
           <input type="email" class="form-control" placeholder="Email address" name="email">
