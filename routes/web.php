@@ -4,8 +4,6 @@ Auth::routes();
 
 Route::get('/', 'FrontEndController@welcome');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('register/confirm', 'ConfirmEmailController@index')->name('confirm-email');
 
 Route::get('/logout', function () {

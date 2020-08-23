@@ -38,14 +38,16 @@ class RegistrationTest extends TestCase
     {
         $this->withoutExceptionHandling();
         Mail::fake();
+
         //Register new user
         $this->post('/register', [
             'name' => '1bruce wayne',
             'email' => '1bruce1wayne@waynetech.ind',
             'password' => 'secret'
         ])->assertRedirect();
+
         //assert that after registration the user was redirected
-        Mail::assertSent(ConfirmYourEmail::class);
+        Mail::assertQueued(ConfirmYourEmail::class);
     }
 
     public function test_a_user_has_a_token_after_registration()

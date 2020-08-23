@@ -40,27 +40,35 @@
 
         <div class="topbar-right">
           <ul class="topbar-nav nav">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            @if(Request::is('/'))
+
+            @else
+              <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            @endif
             @auth
-            @admin
-              <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Edit
-                  series</a></li>
-              <li class="nav-item"><a href="{{ route('series.create') }}" class="nav-link">Create
-                  series</a></li>
+              @admin
+                <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Edit
+                    series</a></li>
+                <li class="nav-item"><a href="{{ route('series.create') }}" class="nav-link">Create
+                    series</a></li>
 
-                @else
+              @else
 
-                @endadmin 
+              @endadmin
 
-              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a></li>
+              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a>
+              </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->name }}</a></li>
+                <a class="nav-link"
+                  href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->name }}</a>
+              </li>
               </li>
             @endauth
 
             @guest
 
-              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a></li>
+              <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a>
+              </li>
               <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
             @endguest
           </ul>
@@ -104,14 +112,16 @@
           </div>
 
           <div class="col-12 col-lg-6 text-center">
-            <a class="nav-link" href="/"><h3>HappyCasts</h3></a> 
+            <a class="nav-link" href="/">
+              <h3>HappyCasts</h3>
+            </a>
           </div>
 
           <div class="col-12 col-lg-3">
             <div class="social text-center text-lg-right">
               <a class="social-linkedin" href=""><i class="fa fa-linkedin"></i></a>
               <a class="social-github" href=""><i class="fa fa-github"></i></a>
-          </div>
+            </div>
           </div>
         </div>
       </div>
