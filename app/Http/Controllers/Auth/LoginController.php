@@ -2,10 +2,10 @@
 
 namespace HappyCasts\Http\Controllers\Auth;
 
+use HappyCasts\User;
 use HappyCasts\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use HappyCasts\User;
 
 class LoginController extends Controller
 {
@@ -68,6 +68,7 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
+
         if (!User::where('email', $request->email)->first()) {
             return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
@@ -75,7 +76,6 @@ class LoginController extends Controller
                     $this->username() => 'The email address or password is incorrect',
                 ]);
         }
-
         if (!User::where('email', $request->email)->where('password', bcrypt($request->password))->first()) {
             return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
