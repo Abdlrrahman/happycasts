@@ -14,6 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        };
+
         Blade::if('hasStartedSeries', function ($series) {
             return auth()->user()->hasStartedSeries($series);
         });
