@@ -12,8 +12,9 @@ use HappyCasts\Series;
 class UpdateSeriesTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
-     * A basic test example.
+     * test a user can update a series
      *
      * @return void
      */
@@ -47,6 +48,11 @@ class UpdateSeriesTest extends TestCase
         ]);
     }
 
+    /**
+     * test an image is not required to update a series
+     *
+     * @return void
+     */
     public function test_an_image_is_not_required_to_update_a_series()
     {
         $this->withoutExceptionHandling();

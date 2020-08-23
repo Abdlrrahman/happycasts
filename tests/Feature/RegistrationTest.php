@@ -15,7 +15,7 @@ class RegistrationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test.
+     * test a user has a default username after registration
      *
      * @return void
      */
@@ -34,6 +34,11 @@ class RegistrationTest extends TestCase
         ]);
     }
 
+    /**
+     * test an email is sent to newly registered users
+     *
+     * @return void
+     */
     public function test_an_email_is_sent_to_newly_registered_users()
     {
         $this->withoutExceptionHandling();
@@ -50,6 +55,11 @@ class RegistrationTest extends TestCase
         Mail::assertQueued(ConfirmYourEmail::class);
     }
 
+    /**
+     * test a user has a token after registration
+     *
+     * @return void
+     */
     public function test_a_user_has_a_token_after_registration()
     {
         Mail::fake();

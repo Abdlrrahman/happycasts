@@ -11,6 +11,11 @@ class SubscriptionsTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * create a fake subscription
+     *
+     * @return void
+     */
     public function fakeSubscribe($user)
     {
         // subscriptions 
@@ -22,6 +27,11 @@ class SubscriptionsTest extends TestCase
         ]);
     }
 
+    /**
+     * test a user without a plan cannot watch premium lessons
+     *
+     * @return void
+     */
     public function test_a_user_without_a_plan_cannot_watch_premium_lessons()
     {
         //create a user
@@ -40,6 +50,11 @@ class SubscriptionsTest extends TestCase
             ->assertViewIs('watch');
     }
 
+    /**
+     * test a user on any plan can watch all lessons
+     *
+     * @return void
+     */
     public function test_a_user_on_any_plan_can_watch_all_lessons()
     {
         //create a user

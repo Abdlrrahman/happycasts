@@ -12,7 +12,7 @@ class ConfirmEmailTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test example.
+     * test a user can confirm email
      *
      * @return void
      */
@@ -32,6 +32,11 @@ class ConfirmEmailTest extends TestCase
         $this->assertTrue($user->fresh()->isConfirmed());
     }
 
+    /**
+     * test a user is redirected if token is wrong
+     *
+     * @return void
+     */
     public function test_a_user_is_redirected_if_token_is_wrong()
     {
         //create user

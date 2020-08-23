@@ -13,7 +13,7 @@ class CreateLessonsTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test example.
+     * test a user can create lessons
      *
      * @return void
      */
@@ -42,6 +42,11 @@ class CreateLessonsTest extends TestCase
         ]);
     }
 
+    /**
+     * test a title is required to create a lesson
+     *
+     * @return void
+     */
     public function test_a_title_is_required_to_create_a_lesson()
     {
         $this->loginAdmin();
@@ -58,6 +63,11 @@ class CreateLessonsTest extends TestCase
             ->assertSessionHasErrors('title');
     }
 
+    /**
+     * test a description is required to create a lesson
+     *
+     * @return void
+     */
     public function test_a_description_is_required_to_create_a_lesson()
     {
         $this->loginAdmin();
@@ -74,6 +84,11 @@ class CreateLessonsTest extends TestCase
             ->assertSessionHasErrors('description');
     }
 
+    /**
+     * test an episode number is required to create a lesson
+     *
+     * @return void
+     */
     public function test_an_episode_number_is_required_to_create_a_lesson()
     {
         $this->loginAdmin();
@@ -90,6 +105,11 @@ class CreateLessonsTest extends TestCase
             ->assertSessionHasErrors('episode_number');
     }
 
+    /**
+     * test a video id is required to create a lesson
+     *
+     * @return void
+     */
     public function test_a_video_id_is_required_to_create_a_lesson()
     {
         $this->loginAdmin();

@@ -10,6 +10,11 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * test correct response after user logs in
+     *
+     * @return void
+     */
     public function test_correct_response_after_user_logs_in()
     {
         $user = factory(User::class)->create();
@@ -22,6 +27,12 @@ class LoginTest extends TestCase
                 'status' => 'ok'
             ])->assertSessionHas('success', 'Successfully logged in.');
     }
+
+    /**
+     * test a user receives correct message when passing in wrong credentials
+     *
+     * @return void
+     */
     public function test_a_user_receives_correct_message_when_passing_in_wrong_credentials()
     {
         $user = factory(User::class)->create();

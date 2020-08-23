@@ -11,6 +11,11 @@ class WatchSeriesTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * test a user can complete a series
+     *
+     * @return void
+     */
     public function test_a_user_can_complete_a_series()
     {
         $this->flushRedis();

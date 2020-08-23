@@ -12,8 +12,9 @@ use HappyCasts\User;
 class CreateSeriesTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
-     * A basic test example.
+     * test a user can create a series
      *
      * @return void
      */
@@ -41,6 +42,11 @@ class CreateSeriesTest extends TestCase
         ]);
     }
 
+    /**
+     * test a series must be created with a title
+     *
+     * @return void
+     */
     public function test_a_series_must_be_created_with_a_title()
     {
         $this->loginAdmin();
@@ -51,6 +57,11 @@ class CreateSeriesTest extends TestCase
         ])->assertSessionHasErrors('title');
     }
 
+    /**
+     * test a series must be created with a description
+     *
+     * @return void
+     */
     public function test_a_series_must_be_created_with_a_description()
     {
         $this->loginAdmin();
@@ -61,6 +72,11 @@ class CreateSeriesTest extends TestCase
         ])->assertSessionHasErrors('description');
     }
 
+    /**
+     * test a series must be created with a image
+     *
+     * @return void
+     */
     public function test_a_series_must_be_created_with_a_image()
     {
         $this->loginAdmin();
@@ -70,6 +86,12 @@ class CreateSeriesTest extends TestCase
             'description' => 'the best vue.js casts ever'
         ])->assertSessionHasErrors('image');
     }
+
+    /**
+     * test a series must be created with an image which is actually an image
+     *
+     * @return void
+     */
     public function test_a_series_must_be_created_with_an_image_which_is_actually_an_image()
     {
         $this->loginAdmin();
@@ -81,6 +103,11 @@ class CreateSeriesTest extends TestCase
         ])->assertSessionHasErrors('image');
     }
 
+    /**
+     * test only administrators can create series
+     *
+     * @return void
+     */
     public function test_only_administrators_can_create_series()
     {
 
