@@ -58,10 +58,11 @@
 
               <li class="nav-item"><a href="{{ route('all-series') }}" class="nav-link">All series</a>
               </li>
+              <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link"
                   href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->name }}</a>
-              </li>
               </li>
             @endauth
 

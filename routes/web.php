@@ -9,7 +9,7 @@ Route::get('register/confirm', 'ConfirmEmailController@index')->name('confirm-em
 Route::get('/logout', function () {
     auth()->logout();
     return redirect('/');
-});
+})->name('logout');
 
 Route::get('/series/{series}', 'FrontendController@series')->name('series');
 
