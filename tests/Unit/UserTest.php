@@ -15,7 +15,7 @@ class ExampleTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test.
+     * test a user can complete a lesson
      *
      * @return void
      */
@@ -47,6 +47,11 @@ class ExampleTest extends TestCase
         );
     }
 
+    /**
+     * test a user can get percentage completed for series
+     *
+     * @return void
+     */
     public function test_a_user_can_get_percentage_completed_for_series()
     {
 
@@ -73,6 +78,11 @@ class ExampleTest extends TestCase
         );
     }
 
+    /**
+     * test can know if a user has started a series
+     *
+     * @return void
+     */
     public function test_can_know_if_a_user_has_started_a_series()
     {
         $this->flushRedis();
@@ -96,6 +106,11 @@ class ExampleTest extends TestCase
         $this->assertFalse($user->hasStartedSeries($lesson3->series));
     }
 
+    /**
+     * test can get completed series lessons
+     *
+     * @return void
+     */
     public function test_can_get_completed_series_lessons()
     {
         $this->flushRedis();
@@ -132,6 +147,11 @@ class ExampleTest extends TestCase
         $this->assertFalse(in_array($lesson3->id, $completedLessonsIds));
     }
 
+    /**
+     * test can check if user has completed lesson
+     *
+     * @return void
+     */
     public function test_can_check_if_user_has_completed_lesson()
     {
         $this->flushRedis();
@@ -150,6 +170,11 @@ class ExampleTest extends TestCase
         $this->assertFalse($user->hasCompletedLesson($lesson2));
     }
 
+    /**
+     * test can get all series being watched by user
+     *
+     * @return void
+     */
     public function test_can_get_all_series_being_watched_by_user()
     {
         $this->flushRedis();
@@ -189,6 +214,11 @@ class ExampleTest extends TestCase
         );
     }
 
+    /**
+     * test can get number of completed lessons for a user
+     *
+     * @return void
+     */
     public function test_can_get_number_of_completed_lessons_for_a_user()
     {
         $this->flushRedis();
@@ -210,6 +240,11 @@ class ExampleTest extends TestCase
         $this->assertEquals(3, $user->getTotalNumberOfCompletedLessons());
     }
 
+    /**
+     * test can get next lesson to be watched by user
+     *
+     * @return void
+     */
     public function test_can_get_next_lesson_to_be_watched_by_user()
     {
         $this->flushRedis();

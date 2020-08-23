@@ -12,7 +12,7 @@ class SeriesTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test.
+     * test series can get image path
      *
      * @return void
      */
@@ -26,6 +26,11 @@ class SeriesTest extends TestCase
         $this->assertEquals(asset('storage/series/series-slug.png'), $imagePath);
     }
 
+    /**
+     * test can get ordered lessons for a series
+     *
+     * @return void
+     */
     public function test_can_get_ordered_lessons_for_a_series()
     {
         // create lessons 
