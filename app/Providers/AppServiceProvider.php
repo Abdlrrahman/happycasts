@@ -3,6 +3,7 @@
 namespace HappyCasts\Providers;
 
 use Blade;
+use URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
