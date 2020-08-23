@@ -6,6 +6,13 @@ use HappyCasts\User;
 
 class ProfilesController extends Controller
 {
+
+    /**
+     * Show the profile page
+     *
+     * @param User $user
+     * @return view
+     */
     public function index(User $user)
     {
         return view('profile')
@@ -13,6 +20,11 @@ class ProfilesController extends Controller
             ->withSeries($user->seriesBeingWatched());
     }
 
+    /**
+     * Handle an incoming request
+     *
+     * @return response()
+     */
     public function updateCard()
     {
         $this->validate(request(), [

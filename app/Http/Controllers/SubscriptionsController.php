@@ -6,11 +6,22 @@ use Illuminate\Http\Request;
 
 class SubscriptionsController extends Controller
 {
+
+    /**
+     * Show the subscribe page
+     *
+     * @return view
+     */
     public function showSubscriptionForm()
     {
         return view('subscribe');
     }
 
+    /**
+     * Handle an incoming request
+     *
+     * @return response()
+     */
     public function subscribe()
     {
         $yearlyId = config('services.yearly_id');
@@ -24,6 +35,11 @@ class SubscriptionsController extends Controller
             );
     }
 
+    /**
+     * Handle an incoming request
+     *
+     * @return redirect()
+     */
     public function change()
     {
         $yearlyId = config('services.yearly_id');

@@ -30,9 +30,13 @@ class CreateSeriesRequest extends SeriesRequest
         ];
     }
 
+    /**
+     * Store series in request to the database
+     * 
+     * @return redirect()
+     */
     public function storeSeries()
     {
-        //create series
         $series = Series::create([
             'title' => $this->title,
             'description' => $this->description,
@@ -42,7 +46,6 @@ class CreateSeriesRequest extends SeriesRequest
 
         session()->flash('success', 'Series created successfully');
 
-        //redirect user to a page to see all the series
         return redirect()->route('series.show', $series->slug);
     }
 }

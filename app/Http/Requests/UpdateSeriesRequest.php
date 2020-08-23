@@ -27,6 +27,12 @@ class UpdateSeriesRequest extends SeriesRequest
         ];
     }
 
+    /**
+     * Update a series into database
+     *
+     * @param [HappyCasts\Series] $series
+     * @return void
+     */
     public function updateSeries($series)
     {
         if ($this->hasFile('image')) {

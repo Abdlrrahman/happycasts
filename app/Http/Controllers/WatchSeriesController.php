@@ -7,6 +7,13 @@ use HappyCasts\Lesson;
 
 class WatchSeriesController extends Controller
 {
+
+    /**
+     * Show the watch page
+     *
+     * @param Series $series
+     * @return redirect()
+     */
     public function index(Series $series)
     {
         $user = auth()->user();
@@ -24,6 +31,13 @@ class WatchSeriesController extends Controller
         ]);
     }
 
+    /**
+     * Show the premium Lesson watch page
+     *
+     * @param Series $series 
+     * @param Lesson $lesson 
+     * @return view
+     */
     public function showLesson(Series $series, Lesson $lesson)
     {
         if ($lesson->premium && !auth()->user()->subscribed('monthly') && !auth()->user()->subscribed('yearly')) {
@@ -36,6 +50,12 @@ class WatchSeriesController extends Controller
         ]);
     }
 
+    /**
+     * Handle an incoming request
+     *
+     * @param Lesson $lesson 
+     * @return response()
+     */
     public function completeLesson(Lesson $lesson)
     {
         auth()->user()->completeLesson($lesson);
