@@ -24,13 +24,20 @@ Route::get('/profile/{user}', 'ProfilesController@index')->name('profile');
 // get all the series
 Route::get('/series', 'FrontendController@showAllseries')->name('all-series');
 
-
+// authanticated user routes
 Route::middleware('auth')->group(function () {
+    // complete a lesson post route
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
+    // create a subscription route
     Route::post('/subscribe', 'SubscriptionsController@subscribe');
+    // change the subscription route
     Route::post('/subscription/change', 'SubscriptionsController@change')->name('subscriptions.change');
+    // update a card route
     Route::post('/card/update', 'ProfilesController@updateCard');
+    //show subscription form route
     Route::get('/subscribe', 'SubscriptionsController@showSubscriptionForm');
+    //get the watch page route
     Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('series.learning');
+    //show a lesson page route
     Route::get('/series/{series}/lesson/{lesson}', 'WatchSeriesController@showLesson')->name('series.watch');
 });
