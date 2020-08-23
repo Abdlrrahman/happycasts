@@ -5,7 +5,7 @@ namespace HappyCasts\Http\Controllers\Auth;
 use HappyCasts\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use HappyCasts\Exceptions\AuthFailedException;
+use HappyCasts\User;
 
 class LoginController extends Controller
 {
@@ -68,6 +68,20 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        throw new AuthFailedException;
+        if (!User::where('email', $request->email)->first()) {
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    $this->username() => 'The email address or password is incorrect',
+                ]);
+        }
+
+        if (!User::where('email', $request->email)->where('password', bcrypt($request->password))->first()) {
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    'password' => 'The email address or password is incorrect',
+                ]);
+        }
     }
 }

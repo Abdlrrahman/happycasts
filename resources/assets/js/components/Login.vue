@@ -45,7 +45,7 @@
         </form>
         <p class="text-center text-muted fs-13 mt-20">
           Don't have an account?
-          <a href="page-register.html">Sign up</a>
+          <a href="register">Sign up</a>
         </p>
       </div>
     </div>

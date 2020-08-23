@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    <title>HappyCasts - Register</title>
+    <title>HappyCasts - Login</title>
 
     <!-- Styles -->
     <link href="assets/css/core.min.css" rel="stylesheet">
@@ -29,7 +29,11 @@
 
       <form class="form-type-material" action="/login" method="post">
           {{ csrf_field() }}
-
+ @if ($errors->has('email') || $errors->has('password'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
         <div class="form-group">
           <input type="email" class="form-control" placeholder="Email address" name="email">
         </div>
@@ -44,7 +48,7 @@
 
       <hr class="w-30">
 
-      <p class="text-center text-muted fs-13 mt-20">No account yet? <a href="page-login.html">Register</a></p>
+      <p class="text-center text-muted fs-13 mt-20">No account yet? <a href="/register">Register</a></p>
     </div>
 
 
