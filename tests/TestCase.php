@@ -11,6 +11,11 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    /**
+     * login as admin
+     *
+     * @return void
+     */
     public function loginAdmin()
     {
         $user = factory(User::class)->create();
@@ -20,6 +25,11 @@ abstract class TestCase extends BaseTestCase
         $this->actingAs($user);
     }
 
+    /**
+     * flushes Redis
+     *
+     * @return void
+     */
     public function flushRedis()
     {
         Redis::flushall();
