@@ -16,13 +16,13 @@ Route::get('/logout', function () {
 })->name('logout');
 
 // get a series
-Route::get('/series/{series}', 'FrontendController@series')->name('series');
+Route::get('/series/{series}', 'FrontEndController@series')->name('series');
 
 // get a user's profile
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile');
 
 // get all the series
-Route::get('/series', 'FrontendController@showAllseries')->name('all-series');
+Route::get('/series', 'FrontEndController@showAllseries')->name('all-series');
 
 // authanticated user routes
 Route::middleware('auth')->group(function () {
