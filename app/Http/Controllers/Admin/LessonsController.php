@@ -70,7 +70,7 @@ class LessonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Series $series, Lesson $lesson, UpdateLessonRequest $request)
+    public function update(Lesson $lesson, UpdateLessonRequest $request)
     {
         $lesson->update($request->all());
 
@@ -82,7 +82,7 @@ class LessonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Series $series, Lesson $lesson)
+    public function destroy(Lesson $lesson)
     {
         $lesson->delete();
 

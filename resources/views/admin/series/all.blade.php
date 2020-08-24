@@ -41,7 +41,12 @@
                       class='btn btn-info'>Edit</a>
                   </td>
                   <td>
-                    <a href='' class='btn btn-danger'>Delete</a>
+                    {{-- <a href="{{ route('series.destroy', $s->slug) }}" class='btn btn-danger'>Delete</a> --}}
+<form action="{{ route('series.destroy', $s->slug) }}"  onclick="return confirm('Are you sure wanna delete it?')" method="post">
+    <input class="btn btn-danger" type="submit" value="Delete" />
+    <input type="hidden" name="_method" value="delete" />
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+</form>
                   </td>
                 </tr>
               @empty

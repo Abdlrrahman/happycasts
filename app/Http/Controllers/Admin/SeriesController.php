@@ -3,6 +3,8 @@
 namespace HappyCasts\Http\Controllers\Admin;
 
 use HappyCasts\Series;
+use HappyCasts\Lesson;
+use DB;
 use HappyCasts\Http\Controllers\Controller;
 use HappyCasts\Http\Requests\CreateSeriesRequest;
 use HappyCasts\Http\Requests\UpdateSeriesRequest;
@@ -87,8 +89,10 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lesson $lesson, Series $series)
     {
-        //
+        $series->delete();
+        session()->flash('status', 'ok');
+        return redirect()->route('series.index');
     }
 }

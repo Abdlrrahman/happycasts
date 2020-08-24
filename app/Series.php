@@ -30,6 +30,23 @@ class Series extends Model
         return $this->hasMany(Lesson::class);
     }
 
+
+    /**
+     * On series delete series lessons
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($series) {
+            foreach ($series->lessons as $lessons) {
+                $lessons->delete();
+            }
+        });
+    }
+
     /**
      * Get the route key for the model.
      *
