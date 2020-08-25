@@ -26,6 +26,8 @@ Route::get('/series', 'FrontEndController@showAllseries')->name('all-series');
 
 // authanticated user routes
 Route::middleware('auth')->group(function () {
+    // update user route
+    Route::patch('/profile/{user}/update', ['as' => 'users.update', 'uses' => 'ProfilesController@updateUser']);
     // complete a lesson post route
     Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@completeLesson');
     // create a subscription route

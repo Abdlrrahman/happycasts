@@ -102,16 +102,17 @@
                     <div class="col-12 col-md-8 align-self-center">
                         <div class="tab-content">
                             <div class="tab-pane show active" id="home-2">
-                                <form action="{{ route('series.store') }}" method="POST"
+                                <form action="{{ route('users.update',$user) }}" method="POST"
                                     enctype="multipart/form-data">
                                     {{ csrf_field() }}
+                                    {{ method_field('patch') }}
                                     <div class="form-group">
                                         <input class="form-control form-control-lg" type="text" name="name"
-                                            placeholder="Your name">
+                                            placeholder="Your name" value="{{ $user->name }}">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control form-control-lg" type="text" name="email"
-                                            placeholder="Your email">
+                                            placeholder="Your email" value="{{ $user->email }}">
                                     </div>
 
                                     <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>
