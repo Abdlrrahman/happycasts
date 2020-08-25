@@ -116,8 +116,8 @@
 
           <div class="col-12 col-lg-3">
             <div class="social text-center text-lg-right">
-              <a class="social-linkedin" href=""><i class="fa fa-linkedin"></i></a>
-              <a class="social-github" href=""><i class="fa fa-github"></i></a>
+              <a class="social-linkedin" href="https://www.linkedin.com/in/abdlrrahman-shibani/"><i class="fa fa-linkedin"></i></a>
+              <a class="social-github" href="https://github.com/Abdlrrahman"><i class="fa fa-github"></i></a>
             </div>
           </div>
         </div>
